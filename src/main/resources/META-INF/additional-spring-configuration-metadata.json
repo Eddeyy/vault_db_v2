@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.dialect."
+    },
+    {
+      "name": "spring.datasource.vault.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.vault.driver-class-name."
+    }
+  ] }
