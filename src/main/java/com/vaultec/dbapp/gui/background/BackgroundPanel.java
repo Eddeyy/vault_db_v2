@@ -1,4 +1,4 @@
-package org.example.gui.background;
+package com.vaultec.dbapp.gui.background;
 
 import java.awt.*;
 import javax.swing.*;

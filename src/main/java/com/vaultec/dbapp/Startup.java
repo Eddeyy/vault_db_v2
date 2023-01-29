@@ -1,15 +1,20 @@
 package com.vaultec.dbapp;
 
+import com.vaultec.dbapp.gui.Window;
 import com.vaultec.dbapp.model.Room;
 import com.vaultec.dbapp.repository.ItemsRepository;
 import com.vaultec.dbapp.repository.RoomsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 
 /*
     Startup class of the database management app.
@@ -23,6 +28,9 @@ public class Startup {
 
     private final RoomsRepository repo;
 
+    @Autowired
+    private final Window window;
+
     @EventListener(ApplicationReadyEvent.class)
     public void startUp() {
         System.out.println("App started!");
@@ -31,9 +39,14 @@ public class Startup {
 
         EventQueue.invokeLater(() ->
         {
-            // Initialize main window bean
-            // var window = SpringBootApp.getApc().getBean(somejframeclass.class);
-            // window.setVisible(true);
+            File file = new File("log2023-01-21_17.log");
+            try{
+                System.setOut(new PrintStream(file));
+                window.initComponents();
+                window.setVisible(true);
+            } catch(IOException e) {
+                System.out.println(e.toString());
+            }
         });
     }
 }

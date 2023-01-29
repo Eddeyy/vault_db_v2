@@ -51,6 +51,13 @@
 			<artifactId>ucp</artifactId>
 			<version>19.6.0.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/tablelayout/TableLayout -->
+		<dependency>
+			<groupId>tablelayout</groupId>
+			<artifactId>TableLayout</artifactId>
+			<version>20050920</version>
+		</dependency>
 	</dependencies>
 
 	<build>
