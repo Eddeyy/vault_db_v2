@@ -8,11 +8,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
+    @Autowired
     private DwellerRepository dwellerRepository;
 
     public Dweller verifyCredentials(String login, String password256) {
         return dwellerRepository.findByCredentials(login, password256);
     }
 
+    public DwellerRepository getDwellerRepository() {
+        return dwellerRepository;
+    }
+
+    public void setDwellerRepository(DwellerRepository dwellerRepository) {
+        this.dwellerRepository = dwellerRepository;
+    }
 }
 
