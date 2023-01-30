@@ -1,4 +1,4 @@
-package org.example.gui.panelFactory;
+package com.vaultec.dbapp.gui.panelFactory;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Sat Jan 21 17:24:24 CET 2023
  */
 
-package org.example.gui;
+package com.vaultec.dbapp.gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,10 +10,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 import info.clearthought.layout.*;
+import org.springframework.stereotype.Component;
 
 /**
  * @author szymon
  */
+@Component
 public class ContentPanel extends JPanel {
     public ContentPanel() {
         initComponents();

@@ -1,4 +1,6 @@
-package org.example.gui.log;
+package com.vaultec.dbapp.gui.log;
+
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
+@Component
 public class LogWindow extends JLabel implements Runnable {
 
     ArrayList<String> logStr = new ArrayList<>();
