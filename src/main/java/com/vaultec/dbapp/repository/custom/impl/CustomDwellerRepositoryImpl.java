@@ -26,6 +26,7 @@ public class CustomDwellerRepositoryImpl implements CustomDwellerRepository {
                                         criteriaBuilder.equal(creds.get("login"), login),
                                         criteriaBuilder.equal(creds.get("password"), password256)
                         ))
-                ).getSingleResult();
+                ).getResultList().stream()
+                .findFirst().orElse(new Dweller());
     }
 }

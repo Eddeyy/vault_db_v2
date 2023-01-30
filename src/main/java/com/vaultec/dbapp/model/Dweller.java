@@ -12,7 +12,7 @@ public class Dweller {
     @Override
     public String toString() {
         return "Dweller{" +
-                "dweller_id=" + dweller_id +
+                "dweller_id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birth_date=" + birth_date +
@@ -24,7 +24,8 @@ public class Dweller {
     }
 
     @Id
-    private Long dweller_id;
+    @Column(name = "DWELLER_ID")
+    private Long id;
 
     private String firstname;
 
@@ -45,11 +46,11 @@ public class Dweller {
     private LoginCredentials loginCredentials;
 
     public Long getDweller_id() {
-        return dweller_id;
+        return id;
     }
 
     public void setDweller_id(Long dweller_id) {
-        this.dweller_id = dweller_id;
+        this.id = dweller_id;
     }
 
     @Lob
