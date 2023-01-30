@@ -36,6 +36,9 @@ public class LoginCard extends JPanel {
         this.add(loginButton, new TableLayoutConstraints(2, 6, 2, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
+    public String[] getLoginData() {
+        return new String[]{loginTextField.getText(), passwordField.getPassword().toString()};
+    }
 
     private JLabel loginLabel;
     private JLabel passwordLabel;
