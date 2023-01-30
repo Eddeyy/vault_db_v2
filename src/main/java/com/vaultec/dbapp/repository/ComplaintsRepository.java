@@ -11,4 +11,6 @@ import java.util.List;
 public interface ComplaintsRepository extends JpaRepository<Complaint, Long>, CustomComplaintsRepository {
 
     List<Complaint> findAllByDwellerId(Long id);
+
+    List<Complaint> findAllByVerStatusStatus(String ver_status);
 }

@@ -19,7 +19,7 @@ public class Complaint {
 
     @ManyToOne(targetEntity = VerificationStatus.class)
     @JoinColumn(name = "VER_STATUS")
-    private VerificationStatus ver_status;
+    private VerificationStatus verStatus;
 
     public Long getComp_id() {
         return comp_id;
@@ -54,10 +54,10 @@ public class Complaint {
     }
 
     public VerificationStatus getVer_status() {
-        return ver_status;
+        return verStatus;
     }
 
     public void setVer_status(VerificationStatus ver_status) {
-        this.ver_status = ver_status;
+        this.verStatus = ver_status;
     }
 }

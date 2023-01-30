@@ -1,5 +1,6 @@
 package com.vaultec.dbapp.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,20 +11,21 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 public class VerificationStatus {
     @Id
-    private String ver_status;
+    @Column(name = "VER_STATUS")
+    private String status;
 
-    public String getVer_status() {
-        return ver_status;
+    public String getStatus() {
+        return status;
     }
 
-    public void setVer_status(String ver_status) {
-        this.ver_status = ver_status;
+    public void setStatus(String ver_status) {
+        this.status = ver_status;
     }
 
     @Override
     public String toString() {
         return "VerificationStatus{" +
-                "ver_status='" + ver_status + '\'' +
+                "ver_status='" + status + '\'' +
                 '}';
     }
 }
