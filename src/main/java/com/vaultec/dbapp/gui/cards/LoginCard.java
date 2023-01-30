@@ -9,11 +9,11 @@ import java.awt.event.ActionEvent;
 public class LoginCard extends JPanel {
 
     private void init() {
-        label1 = new JLabel();
-        label2 = new JLabel();
-        textField1 = new JTextField();
-        passwordField1 = new JPasswordField();
-        button1 = new JButton();
+        loginLabel = new JLabel();
+        passwordLabel = new JLabel();
+        loginTextField = new JTextField();
+        passwordField = new JPasswordField();
+        loginButton = new JButton();
     }
     public LoginCard() {
         init();
@@ -22,24 +22,24 @@ public class LoginCard extends JPanel {
                 {TableLayout.PREFERRED, 101, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, 253}}));
 
         //---- label1 ----
-        label1.setText("Login:");
-        this.add(label1, new TableLayoutConstraints(2, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-        this.add(textField1, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        loginLabel.setText("Login:");
+        this.add(loginLabel, new TableLayoutConstraints(2, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        this.add(loginTextField, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //---- label2 ----
-        label2.setText("Password:");
-        this.add(label2, new TableLayoutConstraints(2, 4, 2, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-        this.add(passwordField1, new TableLayoutConstraints(2, 5, 2, 5, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        passwordLabel.setText("Password:");
+        this.add(passwordLabel, new TableLayoutConstraints(2, 4, 2, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        this.add(passwordField, new TableLayoutConstraints(2, 5, 2, 5, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //---- button1 ----
-        button1.setText("login");
-        this.add(button1, new TableLayoutConstraints(2, 6, 2, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        loginButton.setText("login");
+        this.add(loginButton, new TableLayoutConstraints(2, 6, 2, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
 
-    private JLabel label1;
-    private JLabel label2;
-    private JTextField textField1;
-    private JPasswordField passwordField1;
-    public JButton button1;
+    private JLabel loginLabel;
+    private JLabel passwordLabel;
+    private JTextField loginTextField;
+    private JPasswordField passwordField;
+    public JButton loginButton;
 }

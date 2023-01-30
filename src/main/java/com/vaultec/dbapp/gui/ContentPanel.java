@@ -6,6 +6,7 @@ package com.vaultec.dbapp.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.PreparedStatement;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -25,7 +26,7 @@ public class ContentPanel extends JPanel {
     }
 
 
-    private void button1(ActionEvent e) {
+    private void loginButtonAction(ActionEvent e) {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "MainMenu");
     }
@@ -54,13 +55,8 @@ public class ContentPanel extends JPanel {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         LoginScreen = new LoginCard();
         Warehouse = new WarehouseCard();
-
         MainMenu = new MainMenuCard(this);
-        menuBar1 = new JMenuBar();
-        username = new JLabel();
-        userType = new JLabel();
-        userData = new JLabel();
-        logout = new JButton();
+
         Complaints = new ComplaintsCard();
 
         //======== this ========
@@ -69,7 +65,7 @@ public class ContentPanel extends JPanel {
 
         //======== LoginScreen ========
         {
-            LoginScreen.button1.addActionListener(this::button1);
+            LoginScreen.loginButton.addActionListener(this::loginButtonAction);
         }
         add(LoginScreen, "LoginScreen");
 
@@ -94,18 +90,9 @@ public class ContentPanel extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private LoginCard LoginScreen;
-
-
-
     private WarehouseCard Warehouse;
-
     private MainMenuCard MainMenu;
-    private JMenuBar menuBar1;
-
-    private JLabel username;
-    private JLabel userType;
-    private JLabel userData;
-    private JButton logout;
     private ComplaintsCard Complaints;
+
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
