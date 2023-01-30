@@ -1,6 +1,7 @@
 package com.vaultec.dbapp;
 
 import com.vaultec.dbapp.model.Dweller;
+import com.vaultec.dbapp.repository.ComplaintsRepository;
 import com.vaultec.dbapp.repository.DwellerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -23,6 +24,9 @@ class SpringBootAppTests {
 
 	@Autowired
 	DwellerRepository dwellerRepository;
+
+	@Autowired
+	ComplaintsRepository complaintsRepository;
 
 
 	@BeforeAll
@@ -56,6 +60,11 @@ class SpringBootAppTests {
 		Dweller dweller = dwellerRepository.findByCredentials("huj", password);
 
 		Assertions.assertEquals(dwellerRepository.findById(-2L).orElse(new Dweller()), dweller);
+	}
+
+	@Test
+	void complaintTest() {
+		Assertions.assertEquals(complaintsRepository.findAllByDwellerId(6L).size(), 1);
 	}
 
 }
