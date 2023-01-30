@@ -37,16 +37,16 @@ public class Startup {
 
         repo.findAll().forEach(System.out::println);
 
-        EventQueue.invokeLater(() ->
-        {
-            File file = new File("log2023-01-21_17.log");
-            try{
-                System.setOut(new PrintStream(file));
-                window.initComponents();
-                window.setVisible(true);
-            } catch(IOException e) {
-                System.out.println(e.toString());
-            }
-        });
+            EventQueue.invokeLater(() ->
+            {
+                File file = new File("log2023-01-21_17.log");
+                try {
+                    System.setOut(new PrintStream(file));
+                    window.initComponents();
+                    window.setVisible(true);
+                } catch (IOException e) {
+                    System.out.println(e.toString());
+                }
+            });
     }
 }
