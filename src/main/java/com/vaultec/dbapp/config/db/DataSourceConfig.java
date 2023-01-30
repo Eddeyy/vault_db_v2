@@ -2,6 +2,7 @@ package com.vaultec.dbapp.config.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.pool.HikariPool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,11 @@ public class DataSourceConfig {
         final Map<Object, Object> result = new HashMap<>();
 
         for (DataSourceType sourceType : DataSourceType.values()){
-            result.put(sourceType, this.buildDataSource(sourceType));
+            try {
+                result.put(sourceType, this.buildDataSource(sourceType));
+            }catch(HikariPool.PoolInitializationException e) {
+                System.out.println(e.toString());
+            }
         }
 
         return result;
@@ -46,6 +51,8 @@ public class DataSourceConfig {
         config.setUsername(this.env.getProperty(String.format("datasource.%s.username", sourceType.getName())));
         config.setPassword(this.env.getProperty(String.format("datasource.%s.password", sourceType.getName())));
         config.setDriverClassName(this.env.getProperty(String.format("datasource.%s.driver-class-name", sourceType.getName())));
+
+        config.setConnectionTimeout(3000);
 
         config.setAutoCommit(false);
 
