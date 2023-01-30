@@ -5,6 +5,7 @@ import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class LoginCard extends JPanel {
 
@@ -37,7 +38,7 @@ public class LoginCard extends JPanel {
     }
 
     public String[] getLoginData() {
-        return new String[]{loginTextField.getText(), passwordField.getPassword().toString()};
+        return new String[]{loginTextField.getText(), new String(passwordField.getPassword())};
     }
 
     private JLabel loginLabel;

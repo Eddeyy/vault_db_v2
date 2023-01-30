@@ -10,10 +10,7 @@ import java.sql.PreparedStatement;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import com.vaultec.dbapp.gui.cards.ComplaintsCard;
-import com.vaultec.dbapp.gui.cards.LoginCard;
-import com.vaultec.dbapp.gui.cards.MainMenuCard;
-import com.vaultec.dbapp.gui.cards.WarehouseCard;
+import com.vaultec.dbapp.gui.cards.*;
 import com.vaultec.dbapp.model.Dweller;
 import com.vaultec.dbapp.repository.DwellerRepository;
 import com.vaultec.dbapp.services.auth.LoginService;
@@ -37,7 +34,7 @@ public class ContentPanel extends JPanel {
             System.out.println("LOGINSERVICE.VERIFYCRIDENTIALS FALIED");
             return;
         }
-
+        MainMenu.setUserData(dweller);
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "MainMenu");
     }
@@ -53,12 +50,15 @@ public class ContentPanel extends JPanel {
         cl.show(this, "Complaints");
     }
 
+    private void dwellersOpt(ActionEvent e) {
+        CardLayout cl = (CardLayout)(this.getLayout());
+        cl.show(this, "Dwellers");
+    }
+
     private void logout(ActionEvent e) {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "LoginScreen");
     }
-
-
 
 
     private void initComponents() {
@@ -67,8 +67,8 @@ public class ContentPanel extends JPanel {
         LoginScreen = new LoginCard();
         Warehouse = new WarehouseCard();
         MainMenu = new MainMenuCard(this);
-
         Complaints = new ComplaintsCard();
+        Dwellers = new DwellersCard();
 
         //======== this ========
         setBorder(LineBorder.createBlackLineBorder());
@@ -81,6 +81,9 @@ public class ContentPanel extends JPanel {
         add(LoginScreen, "LoginScreen");
 
         //======== Warehouse ========
+        {
+
+        }
         add(Warehouse, "Warehouse");
 
         //======== MainMenu ========
@@ -88,6 +91,7 @@ public class ContentPanel extends JPanel {
             MainMenu.logout.addActionListener(this::logout);
             MainMenu.complaintsOpt.addActionListener(this::complaintsOpt);
             MainMenu.warehouseOpt.addActionListener(this::warehouseOpt);
+            MainMenu.dwellersOpt.addActionListener(this::dwellersOpt);
         }
         add(MainMenu, "MainMenu");
 
@@ -96,6 +100,12 @@ public class ContentPanel extends JPanel {
 
         }
         add(Complaints, "Complaints");
+
+        //======== Dwellers ======
+        {
+
+        }
+        add(Dwellers, "Dwellers");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -104,6 +114,7 @@ public class ContentPanel extends JPanel {
     private WarehouseCard Warehouse;
     private MainMenuCard MainMenu;
     private ComplaintsCard Complaints;
+    private DwellersCard Dwellers;
 
     @Resource(name = "loginService")
     private LoginService service;

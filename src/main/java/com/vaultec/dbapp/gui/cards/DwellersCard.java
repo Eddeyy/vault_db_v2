@@ -5,12 +5,14 @@ import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class WarehouseCard extends JPanel {
+public class DwellersCard extends JPanel {
 
-    public WarehouseCard() {
+    public DwellersCard() {
         init();
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},
@@ -27,20 +29,15 @@ public class WarehouseCard extends JPanel {
         filterButton.setText("filter");
         filterButton.addActionListener(this::filter);
         this.add(filterButton, new TableLayoutConstraints(3, 3, 3, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-        //---- button3 ----
-        reserveCancel.setText("reserve/cancel");
-        this.add(reserveCancel, new TableLayoutConstraints(5, 3, 5, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
-
-
     }
 
     private void init() {
         tablePane = new JScrollPane();
         filterField = new JTextField();
         filterButton = new JButton();
-        reserveCancel = new JButton();
+
+
+        //table = new JTable(new DefaultTableModel(data, headers));
     }
 
     private void filter(ActionEvent e) {
@@ -49,10 +46,8 @@ public class WarehouseCard extends JPanel {
 //
 //        table.setRowSorter(sorter);
     }
-
     private JScrollPane tablePane;
     private JButton filterButton;
-    private JButton reserveCancel;
     private JTable table;
     private JTextField filterField;
 }

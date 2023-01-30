@@ -14,21 +14,23 @@ import java.util.ArrayList;
 
 
 @Component
-public class LogWindow extends JLabel implements Runnable {
+public class LogWindow extends JScrollPane implements Runnable {
 
     ArrayList<String> logStr = new ArrayList<>();
     volatile boolean active;
     String currFileName;
     public LogWindow() {
-        setBackground(new Color(0, 0, 0, 230));
-        //setBackground(Color.BLACK);
-        setForeground(Color.GREEN);
+        super(new JLabel(), JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        label = (JLabel)getViewport().getView();
+        getViewport().setBackground(new Color(0, 0, 0, 230));
+        label.setBackground(Color.BLACK);
+        label.setForeground(Color.GREEN);
         logStr.add("<html><p>");
         logStr.add("</p></html>");
         active = true;
         currFileName = "log" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH")) + ".log";
-        setHorizontalAlignment(SwingConstants.LEFT);
-        setVerticalAlignment(SwingConstants.TOP);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        label.setVerticalAlignment(SwingConstants.TOP);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setOpaque(true);
     }
@@ -60,14 +62,20 @@ public class LogWindow extends JLabel implements Runnable {
             }
             logStr.add(logStr.size()-1, line);
             String message = "";
+            while(logStr.size() > 30) {
+                logStr.remove(1);
+            }
             for(var str : logStr) {
                 message = message + str + "<br>";
             }
-            setText(message);
+
+            label.setText(message);
         }
     }
 
     public void stop() {
         active = false;
     }
+
+    public JLabel label;
 }

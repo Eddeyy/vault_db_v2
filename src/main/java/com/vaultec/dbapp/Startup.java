@@ -15,6 +15,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
     Startup class of the database management app.
@@ -39,7 +41,7 @@ public class Startup {
 
         EventQueue.invokeLater(() ->
         {
-            File file = new File("log2023-01-21_17.log");
+            File file = new File("log" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH")) + ".log");
             try{
                 System.setOut(new PrintStream(file));
                 window.initComponents();

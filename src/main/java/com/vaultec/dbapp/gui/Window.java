@@ -65,7 +65,6 @@ public class Window extends JFrame {
             ((TableLayout)panel1.getLayout()).setVGap(5);
 
             //---- logWindow1 ----
-            logWindow1.setText("text");
             panel1.add(logWindow1, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
             panel1.add(contentPanel1, new TableLayoutConstraints(1, 0, 1, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         }

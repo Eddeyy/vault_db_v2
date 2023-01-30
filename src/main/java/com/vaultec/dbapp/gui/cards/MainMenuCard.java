@@ -1,5 +1,6 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.model.Dweller;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
@@ -16,6 +17,7 @@ public class MainMenuCard extends JPanel {
         warehouseOpt = new JMenuItem();
         userData = new JLabel();
         complaintsOpt = new JMenuItem();
+        dwellersOpt = new JMenuItem();
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
@@ -45,6 +47,10 @@ public class MainMenuCard extends JPanel {
                 //---- complaintsOpt ----
                 complaintsOpt.setText("complaints");
                 menu1.add(complaintsOpt);
+
+                //---- dwellersOpt ----
+                dwellersOpt.setText("dwellers");
+                menu1.add(dwellersOpt);
             }
             menuBar1.add(menu1);
         }
@@ -68,11 +74,17 @@ public class MainMenuCard extends JPanel {
         this.add(logout, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
+    public void setUserData(Dweller dweller) {
+        username.setText(dweller.getFirstname());
+        userType.setText(dweller.getStatus());
+        userData.setText("id: "+dweller.getDweller_id());
+    }
 
     private JMenuBar menuBar1;
     private JMenu menu1;
     public JMenuItem warehouseOpt;
     public JMenuItem complaintsOpt;
+    public JMenuItem dwellersOpt;
     private JLabel username;
     private JLabel userType;
     private JLabel userData;
