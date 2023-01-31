@@ -16,9 +16,10 @@ public class LoginCard extends JPanel {
         passwordField = new JPasswordField();
         loginButton = new JButton();
     }
+
     public LoginCard() {
         init();
-        this.setLayout(new TableLayout(new double[][] {
+        this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 200, 200, 203, 21},
                 {TableLayout.PREFERRED, 101, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, 253}}));
 

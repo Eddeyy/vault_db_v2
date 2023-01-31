@@ -10,9 +10,9 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class WarehouseCard extends JPanel {
+public class HospitalCard extends JPanel {
 
-    public WarehouseCard() {
+    public HospitalCard() {
         init();
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},

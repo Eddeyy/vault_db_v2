@@ -21,7 +21,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Component
 public class ContentPanel extends JPanel {
     public ContentPanel() {
-        initComponents();
     }
 
 
@@ -35,6 +34,7 @@ public class ContentPanel extends JPanel {
         MainMenu.setUserData(dweller);
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "MainMenu");
+        logged = true;
     }
 
 
@@ -53,21 +53,27 @@ public class ContentPanel extends JPanel {
         cl.show(this, "Dwellers");
     }
 
+    private void hospitalOpt(ActionEvent e) {
+        CardLayout cl = (CardLayout)(this.getLayout());
+        cl.show(this, "Hospital");
+    }
+
     private void logout(ActionEvent e) {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "LoginScreen");
+        logged = false;
     }
 
 
-    private void initComponents() {
+    public void initComponents() {
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         LoginScreen = new LoginCard();
         Warehouse = new WarehouseCard();
         MainMenu = new MainMenuCard(this);
         Complaints = new ComplaintsCard();
-        Dwellers = new DwellersCard();
-
+        Hospital = new HospitalCard();
+        Dwellers.init();
         //======== this ========
         setBorder(LineBorder.createBlackLineBorder());
         setLayout(new CardLayout());
@@ -90,6 +96,7 @@ public class ContentPanel extends JPanel {
             MainMenu.complaintsOpt.addActionListener(this::complaintsOpt);
             MainMenu.warehouseOpt.addActionListener(this::warehouseOpt);
             MainMenu.dwellersOpt.addActionListener(this::dwellersOpt);
+            MainMenu.hospitalOpt.addActionListener(this::hospitalOpt);
         }
         add(MainMenu, "MainMenu");
 
@@ -104,15 +111,30 @@ public class ContentPanel extends JPanel {
 
         }
         add(Dwellers, "Dwellers");
+
+        //======== Hospital =======
+        {
+
+        }
+        add(Hospital, "Hospital");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+    }
+
+    boolean isLogged() {
+        return logged;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private LoginCard LoginScreen;
     private WarehouseCard Warehouse;
     private MainMenuCard MainMenu;
+
     private ComplaintsCard Complaints;
+    @Resource(name = "dwellersCard")
     private DwellersCard Dwellers;
+    private HospitalCard Hospital;
+
+    private boolean logged = false;
 
     @Resource(name = "loginService")
     private LoginService service;
