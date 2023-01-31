@@ -1,4 +1,4 @@
-package com.vaultec.dbapp.services.auth;
+package com.vaultec.dbapp.services;
 
 import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.repository.view.RoomViewRepo;
