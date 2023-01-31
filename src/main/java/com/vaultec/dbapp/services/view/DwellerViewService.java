@@ -1,7 +1,7 @@
 package com.vaultec.dbapp.services.view;
 
 import com.vaultec.dbapp.model.view.DwellerView;
-import com.vaultec.dbapp.repository.DwellerViewRepo;
+import com.vaultec.dbapp.repository.view.DwellerViewRepo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Sort;

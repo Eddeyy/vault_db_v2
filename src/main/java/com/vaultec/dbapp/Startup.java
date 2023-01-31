@@ -41,7 +41,7 @@ public class Startup {
             File file = new File("log" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH")) + ".log");
             try{
                 System.setOut(new PrintStream(file));
-                window.initComponents();
+                //window.initComponents();
                 window.setVisible(true);
             } catch(IOException e) {
                 System.out.println(e.toString());

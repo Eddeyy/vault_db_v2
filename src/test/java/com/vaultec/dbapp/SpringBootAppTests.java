@@ -3,7 +3,7 @@ package com.vaultec.dbapp;
 import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.repository.ComplaintsRepository;
 import com.vaultec.dbapp.repository.DwellerRepository;
-import com.vaultec.dbapp.repository.DwellerViewRepo;
+import com.vaultec.dbapp.repository.view.DwellerViewRepo;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

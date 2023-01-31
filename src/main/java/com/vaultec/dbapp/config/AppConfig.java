@@ -12,7 +12,7 @@ import java.io.IOException;
 @Configuration
 public class AppConfig {
 
-    @Bean
+    @Bean(initMethod = "initComponents")
     public Window getWindow() throws IOException {
         return new Window();
     }
