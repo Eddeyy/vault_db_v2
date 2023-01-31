@@ -15,6 +15,7 @@ public class MainMenuCard extends JPanel {
         userData = new JLabel();
         complaintsOpt = new JMenuItem();
         dwellersOpt = new JMenuItem();
+        hospitalOpt = new JMenuItem();
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
@@ -23,11 +24,11 @@ public class MainMenuCard extends JPanel {
     public MainMenuCard(JPanel parent) {
         this.parent = parent;
         init();
-        this.setLayout(new TableLayout(new double[][] {
+        this.setLayout(new TableLayout(new double[][]{
                 {116, 394, 99, 33},
                 {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, 28, 390}}));
-        ((TableLayout)this.getLayout()).setHGap(5);
-        ((TableLayout)this.getLayout()).setVGap(5);
+        ((TableLayout) this.getLayout()).setHGap(5);
+        ((TableLayout) this.getLayout()).setVGap(5);
         //======== menuBar1 ========
         {
 
@@ -48,6 +49,10 @@ public class MainMenuCard extends JPanel {
                 //---- dwellersOpt ----
                 dwellersOpt.setText("dwellers");
                 menu1.add(dwellersOpt);
+
+                //---- hospitalOpt
+                hospitalOpt.setText("hospital");
+                menu1.add(hospitalOpt);
             }
             menuBar1.add(menu1);
         }
@@ -74,7 +79,7 @@ public class MainMenuCard extends JPanel {
     public void setUserData(Dweller dweller) {
         username.setText(dweller.getFirstname());
         userType.setText(dweller.getStatus());
-        userData.setText("id: "+dweller.getDweller_id());
+        userData.setText("id: " + dweller.getDweller_id());
     }
 
     private JMenuBar menuBar1;
@@ -82,10 +87,11 @@ public class MainMenuCard extends JPanel {
     public JMenuItem warehouseOpt;
     public JMenuItem complaintsOpt;
     public JMenuItem dwellersOpt;
+    public JMenuItem hospitalOpt;
     private JLabel username;
     private JLabel userType;
     private JLabel userData;
     public JButton logout;
-    private JPanel parent;
+    private final JPanel parent;
 
 }

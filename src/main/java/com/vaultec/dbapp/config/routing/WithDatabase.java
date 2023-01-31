@@ -21,5 +21,5 @@ import java.lang.annotation.Target;
 @Transactional
 public @interface WithDatabase {
 
-    DataSourceType value() default DataSourceType.RADMIN_VAULT;
+    DataSourceType value() default DataSourceType.HAMACHI_VAULT;
 }

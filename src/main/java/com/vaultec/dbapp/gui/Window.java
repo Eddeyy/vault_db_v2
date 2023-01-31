@@ -36,7 +36,12 @@ public class Window extends JFrame {
 
     private void back(ActionEvent e) {
         CardLayout cl = (CardLayout)(contentPanel1.getLayout());
-        cl.show(contentPanel1, "MainMenu");
+
+        if(contentPanel1.isLogged()) {
+            cl.show(contentPanel1, "MainMenu");
+            return;
+        }
+        System.out.println("Log in first!!!");
     }
 
 
@@ -47,6 +52,8 @@ public class Window extends JFrame {
 //        logWindow1 = new LogWindow();
 //        contentPanel1 = new ContentPanel();
         back = new JButton();
+
+        contentPanel1.initComponents();
 
         //======== this ========
         setPreferredSize(new Dimension(1000, 600));

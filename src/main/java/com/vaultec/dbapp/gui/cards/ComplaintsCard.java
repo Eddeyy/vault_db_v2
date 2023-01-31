@@ -15,13 +15,14 @@ public class ComplaintsCard extends JPanel {
         refresh = new JButton();
         add = new JButton();
     }
+
     public ComplaintsCard() {
         init();
-        this.setLayout(new TableLayout(new double[][] {
+        this.setLayout(new TableLayout(new double[][]{
                 {489, TableLayout.PREFERRED, 56, 69, 20},
                 {364, 25, 27, 37}}));
-        ((TableLayout)this.getLayout()).setHGap(5);
-        ((TableLayout)this.getLayout()).setVGap(15);
+        ((TableLayout) this.getLayout()).setHGap(5);
+        ((TableLayout) this.getLayout()).setVGap(15);
 
         //---- complaints ----
         complaints.setText("skargi");
