@@ -1,7 +1,7 @@
 package com.vaultec.dbapp.repository.custom.impl;
 
-import com.vaultec.dbapp.model.Dweller;
-import com.vaultec.dbapp.model.LoginCredentials;
+import com.vaultec.dbapp.model.entity.Dweller;
+import com.vaultec.dbapp.model.entity.LoginCredentials;
 import com.vaultec.dbapp.repository.custom.CustomDwellerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

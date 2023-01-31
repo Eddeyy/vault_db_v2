@@ -1,9 +1,9 @@
 package com.vaultec.dbapp.repository;
 
-import com.vaultec.dbapp.model.entity.Room;
+import com.vaultec.dbapp.model.view.DwellerView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoomsRepository extends JpaRepository<Room, Long> {
+public interface DwellerViewRepo extends JpaRepository<DwellerView, Long> {
 }

@@ -1,6 +1,6 @@
 package com.vaultec.dbapp.repository.custom;
 
-import com.vaultec.dbapp.model.Dweller;
+import com.vaultec.dbapp.model.entity.Dweller;
 
 public interface CustomDwellerRepository {
 

@@ -6,13 +6,11 @@ package com.vaultec.dbapp.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
 import javax.swing.*;
 import javax.swing.border.*;
 
 import com.vaultec.dbapp.gui.cards.*;
-import com.vaultec.dbapp.model.Dweller;
-import com.vaultec.dbapp.repository.DwellerRepository;
+import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.services.auth.LoginService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;

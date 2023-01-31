@@ -1,6 +1,6 @@
 package com.vaultec.dbapp.repository;
 
-import com.vaultec.dbapp.model.Complaint;
+import com.vaultec.dbapp.model.entity.Complaint;
 import com.vaultec.dbapp.repository.custom.CustomComplaintsRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

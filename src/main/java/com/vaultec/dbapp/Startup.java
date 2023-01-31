@@ -1,8 +1,6 @@
 package com.vaultec.dbapp;
 
 import com.vaultec.dbapp.gui.Window;
-import com.vaultec.dbapp.model.Room;
-import com.vaultec.dbapp.repository.ItemsRepository;
 import com.vaultec.dbapp.repository.RoomsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;

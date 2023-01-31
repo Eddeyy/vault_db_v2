@@ -1,14 +1,11 @@
 package com.vaultec.dbapp.gui.cards;
 
-import com.vaultec.dbapp.model.Dweller;
+import com.vaultec.dbapp.model.entity.Dweller;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class MainMenuCard extends JPanel {
     private void init() {

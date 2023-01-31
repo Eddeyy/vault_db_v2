@@ -1,4 +1,4 @@
-package com.vaultec.dbapp.model;
+package com.vaultec.dbapp.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
