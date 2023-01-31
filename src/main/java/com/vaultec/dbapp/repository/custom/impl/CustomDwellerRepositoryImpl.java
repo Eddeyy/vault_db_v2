@@ -17,7 +17,6 @@ public class CustomDwellerRepositoryImpl implements CustomDwellerRepository {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Dweller> criteriaQuery = criteriaBuilder.createQuery(Dweller.class);
         Root<Dweller> dwellerRoot = criteriaQuery.from(Dweller.class);
-        Root<LoginCredentials> credentialsRoot = criteriaQuery.from(LoginCredentials.class);
         Join<Dweller, LoginCredentials> creds = dwellerRoot.join("loginCredentials", JoinType.INNER);
 
         return entityManager.createQuery(criteriaQuery.select(dwellerRoot)
