@@ -16,7 +16,7 @@ public class MainMenuCard extends DefaultCard {
         complaintsOpt = new JMenuItem();
         dwellersOpt = new JMenuItem();
         hospitalOpt = new JMenuItem();
-        generatorsOpt = new JMenu();
+        generatorsOpt = new JMenuItem();
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
@@ -50,6 +50,9 @@ public class MainMenuCard extends DefaultCard {
                 //---- hospitalOpt
                 hospitalOpt.setText("hospital");
                 menu1.add(hospitalOpt);
+
+                generatorsOpt.setText("generators");
+                menu1.add(generatorsOpt);
             }
             menuBar1.add(menu1);
         }
@@ -90,7 +93,6 @@ public class MainMenuCard extends DefaultCard {
         username.setText("name: "+getCurrentDweller().getFirstname());
         userType.setText("job: "+getCurrentDweller().getJob().getJob_title());
         userData.setText("id: "+getCurrentDweller().getId());
-
     }
     private JMenuBar menuBar1;
     private JMenu menu1;
