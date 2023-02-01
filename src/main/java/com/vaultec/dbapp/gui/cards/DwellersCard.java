@@ -1,8 +1,8 @@
 package com.vaultec.dbapp.gui.cards;
 
-import com.vaultec.dbapp.DefaultCard;
 import com.vaultec.dbapp.gui.utility.AddUserWindow;
 import com.vaultec.dbapp.model.entity.Dweller;
+import com.vaultec.dbapp.model.entity.Job;
 import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.model.view.DwellerView;
 import com.vaultec.dbapp.validation.UsableBy;
@@ -11,7 +11,6 @@ import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -118,6 +117,14 @@ public class DwellersCard extends DefaultCard {
         dweller.setFirstname(addWindow.getNameField().getText());
         dweller.setSurname(addWindow.getSurnameField().getText());
         dweller.setStatus("idle");
+
+        Job job = new Job();
+        job.setJob_id(0L);
+        job.setJob_title("unemployed");
+
+        dweller.setJob(job);
+
+        getDwellerService().createDweller(dweller);
 
         fetchData();
         addWindow.dispose();

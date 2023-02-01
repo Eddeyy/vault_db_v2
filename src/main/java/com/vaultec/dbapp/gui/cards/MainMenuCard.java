@@ -1,6 +1,5 @@
 package com.vaultec.dbapp.gui.cards;
 
-import com.vaultec.dbapp.DefaultCard;
 import com.vaultec.dbapp.model.entity.Dweller;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;

@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -51,18 +52,16 @@ public class Window extends JFrame {
     public void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         panel1 = new JPanel();
-//        logWindow1 = new LogWindow();
-//        contentPanel1 = new ContentPanel();
-        back = new JButton();
+
 
         contentPanel1.initComponents();
 
         //======== this ========
-        setPreferredSize(new Dimension(1000, 600));
+        setPreferredSize(new Dimension(1060, 710));
         var contentPane = getContentPane();
         contentPane.setLayout(new TableLayout(new double[][] {
-            {50, 200, 643, 59, TableLayout.PREFERRED},
-            {50, 465, 25, TableLayout.PREFERRED}}));
+            {90, 200, 640, 49, 60, TableLayout.PREFERRED},
+            {90, 465, 30, 25, 80, TableLayout.PREFERRED}}));
         ((TableLayout)contentPane.getLayout()).setHGap(5);
 
         //======== panel1 ========
@@ -80,10 +79,13 @@ public class Window extends JFrame {
         contentPane.add(panel1, new TableLayoutConstraints(1, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         //---- back ----
-        back.setText("back");
-        back.setPreferredSize(new Dimension(40, 20));
+        back = new JButton();
+        Image scaledButtonIcon = buttonIcon.getScaledInstance(60,24, Image.SCALE_SMOOTH);
+        back.setIcon(new ImageIcon(scaledButtonIcon));
+        back.setSize(new Dimension(70, 30));
+        back.setMaximumSize(new Dimension(70, 30));
         back.addActionListener(e -> back(e));
-        contentPane.add(back, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        contentPane.add(back, new TableLayoutConstraints(3, 3, 3, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -91,11 +93,12 @@ public class Window extends JFrame {
         logThread.start();
 
         //----- background -----
-        background= new BackgroundPanel(image);
+        background = new BackgroundPanel(backgroundImage, BackgroundPanel.SCALED);
+        add(background, new TableLayoutConstraints(0, 0, 4, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
-    final BufferedImage image = ImageIO.read(new File("ramka.png"));
-    //final Image buttonIcon = ImageIO.read(getClass().getResource("back.png"));
+    final BufferedImage backgroundImage = ImageIO.read(new File("ramka.png"));
+    final BufferedImage buttonIcon = ImageIO.read(new File("backButton.png"));
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel panel1;
     private BackgroundPanel background;

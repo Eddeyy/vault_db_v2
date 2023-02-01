@@ -1,5 +1,6 @@
-package com.vaultec.dbapp;
+package com.vaultec.dbapp.gui.cards;
 import com.vaultec.dbapp.model.entity.Dweller;
+import com.vaultec.dbapp.services.DwellerService;
 import com.vaultec.dbapp.services.view.DwellerViewService;
 import jakarta.annotation.Resource;
 import lombok.Getter;
@@ -10,17 +11,16 @@ import org.springframework.stereotype.Component;
 import javax.swing.JPanel;
 
 @Getter
+@Setter(onMethod = @__(@Autowired))
 public abstract class DefaultCard extends JPanel {
 
     Dweller currentDweller;
 
 
     private DwellerViewService dwellerViewService;
+    private DwellerService dwellerService;
 
-    @Autowired
-    public final void setDwellerViewService(DwellerViewService dwellerViewService) {
-        this.dwellerViewService = dwellerViewService;
-    }
+
 
     public void init() {
 

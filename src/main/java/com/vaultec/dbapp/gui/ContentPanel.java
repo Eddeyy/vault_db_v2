@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import com.vaultec.dbapp.DefaultCard;
+import com.vaultec.dbapp.gui.cards.DefaultCard;
 import com.vaultec.dbapp.SpringBootApp;
 import com.vaultec.dbapp.gui.cards.*;
 import com.vaultec.dbapp.model.entity.Dweller;
