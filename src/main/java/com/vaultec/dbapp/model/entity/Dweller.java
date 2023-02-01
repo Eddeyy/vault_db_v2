@@ -19,7 +19,8 @@ import java.util.Objects;
 @EqualsAndHashCode(exclude = {"id", "loginCredentials"})
 public class Dweller {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dweller_generator")
+    @SequenceGenerator(name = "dwelle_generator", sequenceName = "DWELLER_ID_SEQ")
     @Column(name = "DWELLER_ID")
     private Long id;
 
