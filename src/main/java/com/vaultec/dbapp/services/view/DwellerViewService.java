@@ -15,10 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 public class DwellerViewService {
-    @Autowired
-    private DwellerViewRepo dwellerViewRepo;
 
+    private DwellerViewRepo dwellerViewRepo;
+    @Autowired
+    public void setDwellerViewRepo(DwellerViewRepo dwellerViewRepo) {
+        this.dwellerViewRepo = dwellerViewRepo;
+    }
     public List<DwellerView> findAll() {
         return this.dwellerViewRepo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
+
 }

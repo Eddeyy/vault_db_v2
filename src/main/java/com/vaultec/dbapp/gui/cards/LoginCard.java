@@ -1,24 +1,20 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.DefaultCard;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.util.Arrays;
 
-public class LoginCard extends JPanel {
+public class LoginCard extends DefaultCard {
 
-    private void init() {
+    public void init() {
         loginLabel = new JLabel();
         passwordLabel = new JLabel();
         loginTextField = new JTextField();
         passwordField = new JPasswordField();
         loginButton = new JButton();
-    }
 
-    public LoginCard() {
-        init();
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 200, 200, 203, 21},
                 {TableLayout.PREFERRED, 101, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, 253}}));
@@ -37,6 +33,7 @@ public class LoginCard extends JPanel {
         loginButton.setText("login");
         this.add(loginButton, new TableLayoutConstraints(2, 6, 2, 6, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
+
 
     public String[] getLoginData() {
         return new String[]{loginTextField.getText(), new String(passwordField.getPassword())};

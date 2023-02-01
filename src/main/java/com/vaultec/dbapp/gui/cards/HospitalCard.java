@@ -1,19 +1,26 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.DefaultCard;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class HospitalCard extends JPanel {
+public class HospitalCard extends DefaultCard {
 
     public HospitalCard() {
-        init();
+
+    }
+
+    public void init() {
+        tablePane = new JScrollPane();
+        filterField = new JTextField();
+        filterButton = new JButton();
+        reserveCancel = new JButton();
+
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},
                 {TableLayout.PREFERRED, 347, 54, 26, 53}}));
@@ -35,13 +42,6 @@ public class HospitalCard extends JPanel {
         this.add(reserveCancel, new TableLayoutConstraints(5, 3, 5, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
 
-    }
-
-    private void init() {
-        tablePane = new JScrollPane();
-        filterField = new JTextField();
-        filterButton = new JButton();
-        reserveCancel = new JButton();
     }
 
     private void filter(ActionEvent e) {

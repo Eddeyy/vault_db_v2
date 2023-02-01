@@ -1,14 +1,15 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.DefaultCard;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ComplaintsCard extends JPanel {
+public class ComplaintsCard extends DefaultCard {
 
-    private void init() {
+    public void init() {
         complaints = new JLabel();
         scrollPane2 = new JScrollPane();
         list1 = new JList();

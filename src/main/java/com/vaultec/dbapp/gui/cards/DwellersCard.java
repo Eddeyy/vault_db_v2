@@ -1,29 +1,24 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.DefaultCard;
 import com.vaultec.dbapp.gui.utility.AddUserWindow;
 import com.vaultec.dbapp.model.entity.Dweller;
+import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.model.view.DwellerView;
-import com.vaultec.dbapp.services.view.DwellerViewService;
+import com.vaultec.dbapp.validation.UsableBy;
+import com.vaultec.dbapp.validation.UserValidatior;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
-import jakarta.annotation.Resource;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import java.awt.*;
-import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -31,9 +26,9 @@ import java.awt.event.ActionEvent;
 @Getter
 @Setter
 @Component
-public class DwellersCard extends JPanel {
+public class DwellersCard extends DefaultCard {
+    public void init() {
 
-    public DwellersCard() {
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},
                 {TableLayout.PREFERRED, 347, 54, 26, 53}}));
@@ -43,9 +38,6 @@ public class DwellersCard extends JPanel {
 
         }
 
-    }
-
-    public void init() {
         tablePane = new JScrollPane();
         filterField = new JTextField();
         filterButton = new JButton();
@@ -62,10 +54,19 @@ public class DwellersCard extends JPanel {
         addUserButton.setText("add user");
         addUserButton.addActionListener(this::addUser);
         this.add(addUserButton, new TableLayoutConstraints(4, 3, 4, 3, TableLayoutConstraints.RIGHT, TableLayoutConstraints.TOP));
+
+        try {
+            if (!UserValidatior.isAllowed(dwellerInfo.getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
+                addUserButton.setEnabled(false);
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
 
     private void fetchData() {
-        List<DwellerView> dwellerList = dwellerViewService.findAll();
+        List<DwellerView> dwellerList = this.getDwellerViewService().findAll();
         Field[] header = DwellerView.class.getDeclaredFields();
         String[] headerNames = Arrays.stream(header).map(Field::getName).toArray(String[]::new);
 
@@ -97,9 +98,17 @@ public class DwellersCard extends JPanel {
         table.setRowSorter(sorter);
     }
 
-
+    @UsableBy({UserType.MANAGER})
     private void addUser(ActionEvent e) {
-        // TODO validate user
+        try {
+            if (!UserValidatior.isAllowed(dwellerInfo.getJob().getJob_title().toUpperCase(),
+                                          this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
+                System.out.println("User not allowed to perform this operation");
+                return;
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
         addWindow = new AddUserWindow();
         addWindow.setVisible(true);
         addWindow.addButton.addActionListener(this::addUserCall);
@@ -110,7 +119,7 @@ public class DwellersCard extends JPanel {
         dweller.setFirstname(addWindow.getNameField().getText());
         dweller.setSurname(addWindow.getSurnameField().getText());
         dweller.setStatus("idle");
-        // TODO push data;
+
         fetchData();
         addWindow.dispose();
     }
@@ -121,6 +130,5 @@ public class DwellersCard extends JPanel {
     private JTable table;
     private JTextField filterField;
     private AddUserWindow addWindow;
-    @Autowired
-    private DwellerViewService dwellerViewService;
+    private Dweller dwellerInfo;
 }

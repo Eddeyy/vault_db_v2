@@ -1,5 +1,6 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.DefaultCard;
 import com.vaultec.dbapp.model.entity.Dweller;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
@@ -7,8 +8,8 @@ import info.clearthought.layout.TableLayoutConstraints;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainMenuCard extends JPanel {
-    private void init() {
+public class MainMenuCard extends DefaultCard {
+    public void init() {
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
         warehouseOpt = new JMenuItem();
@@ -19,11 +20,7 @@ public class MainMenuCard extends JPanel {
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
-    }
 
-    public MainMenuCard(JPanel parent) {
-        this.parent = parent;
-        init();
         this.setLayout(new TableLayout(new double[][]{
                 {116, 394, 99, 33},
                 {TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, 28, 390}}));
@@ -76,6 +73,7 @@ public class MainMenuCard extends JPanel {
         this.add(logout, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
+
     public void setUserData(Dweller dweller) {
         username.setText(dweller.getFirstname());
         userType.setText(dweller.getStatus());
@@ -92,6 +90,4 @@ public class MainMenuCard extends JPanel {
     private JLabel userType;
     private JLabel userData;
     public JButton logout;
-    private final JPanel parent;
-
 }

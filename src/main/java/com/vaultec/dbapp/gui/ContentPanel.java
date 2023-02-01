@@ -6,9 +6,12 @@ package com.vaultec.dbapp.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.vaultec.dbapp.DefaultCard;
 import com.vaultec.dbapp.gui.cards.*;
 import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.services.auth.LoginService;
@@ -25,16 +28,17 @@ public class ContentPanel extends JPanel {
 
 
     private void loginButtonAction(ActionEvent e) {
-        String[] loginData = LoginScreen.getLoginData();
+        String[] loginData = ((LoginCard)cards.get("LoginScreen")).getLoginData();
         Dweller dweller = service.verifyCredentials(loginData[0], DigestUtils.sha256Hex(loginData[1]));
         if(dweller.equals(new Dweller())) {
             System.out.println("LOGINSERVICE.VERIFYCRIDENTIALS FALIED");
             return;
         }
-        MainMenu.setUserData(dweller);
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "MainMenu");
         logged = true;
+        this.dweller = dweller;
+        Dwellers.setDwellerInfo(dweller);
     }
 
 
@@ -62,61 +66,67 @@ public class ContentPanel extends JPanel {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "LoginScreen");
         logged = false;
+        dweller = null;
     }
 
 
     public void initComponents() {
+        cards = new HashMap<String, DefaultCard>();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        LoginScreen = new LoginCard();
-        Warehouse = new WarehouseCard();
-        MainMenu = new MainMenuCard(this);
-        Complaints = new ComplaintsCard();
-        Hospital = new HospitalCard();
-        Dwellers.init();
+        cards.put("WarehouseScreen", new WarehouseCard());
+        cards.put("MainMenuScreen", new MainMenuCard());
+        cards.put("ComplaintsScreen", new ComplaintsCard());
+        cards.put("HospitalScreen", new HospitalCard());
+        cards.put("DwellersScreen", new DwellersCard());
+        cards.put("LoginScreen", new LoginCard());
+
+        for (var card : cards.values()) {
+            card.init();
+        }
         //======== this ========
         setBorder(LineBorder.createBlackLineBorder());
         setLayout(new CardLayout());
 
         //======== LoginScreen ========
         {
-            LoginScreen.loginButton.addActionListener(this::loginButtonAction);
+            ((LoginCard)cards.get("LoginScreen")).loginButton.addActionListener(this::loginButtonAction);
         }
-        add(LoginScreen, "LoginScreen");
+        add(cards.get("LoginScreen"), "LoginScreen");
 
         //======== Warehouse ========
         {
 
         }
-        add(Warehouse, "Warehouse");
+        add(cards.get("WarehouseScreen"), "Warehouse");
 
         //======== MainMenu ========
         {
-            MainMenu.logout.addActionListener(this::logout);
-            MainMenu.complaintsOpt.addActionListener(this::complaintsOpt);
-            MainMenu.warehouseOpt.addActionListener(this::warehouseOpt);
-            MainMenu.dwellersOpt.addActionListener(this::dwellersOpt);
-            MainMenu.hospitalOpt.addActionListener(this::hospitalOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).logout.addActionListener(this::logout);
+            ((MainMenuCard)cards.get("MainMenuScreen")).complaintsOpt.addActionListener(this::complaintsOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).warehouseOpt.addActionListener(this::warehouseOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).dwellersOpt.addActionListener(this::dwellersOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).hospitalOpt.addActionListener(this::hospitalOpt);
         }
-        add(MainMenu, "MainMenu");
+        add(cards.get("MainMenuScreen"), "MainMenu");
 
         //======== Complaints ========
         {
 
         }
-        add(Complaints, "Complaints");
+        add(cards.get("ComplaintsScreen"), "Complaints");
 
         //======== Dwellers ======
         {
 
         }
-        add(Dwellers, "Dwellers");
+        add(cards.get("DwellersScreen"), "Dwellers");
 
         //======== Hospital =======
         {
 
         }
-        add(Hospital, "Hospital");
+        add(cards.get("HospitalScreen"), "Hospital");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -125,17 +135,16 @@ public class ContentPanel extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    private LoginCard LoginScreen;
-    private WarehouseCard Warehouse;
-    private MainMenuCard MainMenu;
 
-    private ComplaintsCard Complaints;
     @Resource(name = "dwellersCard")
     private DwellersCard Dwellers;
     private HospitalCard Hospital;
 
-    private boolean logged = false;
 
+    Map<String, DefaultCard> cards;
+
+    private boolean logged = false;
+    private Dweller dweller;
     @Resource(name = "loginService")
     private LoginService service;
 
