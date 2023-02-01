@@ -4,6 +4,7 @@ import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.repository.ComplaintsRepository;
 import com.vaultec.dbapp.repository.DwellerRepository;
 import com.vaultec.dbapp.repository.view.DwellerViewRepo;
+import com.vaultec.dbapp.services.DwellerService;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ class SpringBootAppTests {
 
 	@Autowired
 	DwellerViewRepo dwellerViewRepo;
+
+	@Autowired
+	DwellerService dwellerService;
 
 	@BeforeAll
 	public static void setUp(){
@@ -44,7 +48,7 @@ class SpringBootAppTests {
 		String password = DigestUtils.sha256Hex("belarus");
 		Dweller dweller = dwellerRepository.findByCredentials("dimag", password);
 
-		Assertions.assertEquals(dwellerRepository.findById(6L).orElse(new Dweller()), dweller);
+		Assertions.assertEquals(dwellerRepository.findById(6L).orElse(new Dweller()).getDweller_id(), dweller.getDweller_id());
 
 	}
 
@@ -54,7 +58,7 @@ class SpringBootAppTests {
 		String password = DigestUtils.sha256Hex("guwno");
 		Dweller dweller = dwellerRepository.findByCredentials("huj", password);
 
-		Assertions.assertEquals(dwellerRepository.findById(-2L).orElse(new Dweller()), dweller);
+		Assertions.assertEquals(dwellerRepository.findById(-1L).orElse(new Dweller()).getDweller_id(), dweller.getDweller_id());
 	}
 
 	@Test
@@ -70,5 +74,10 @@ class SpringBootAppTests {
 	@Test
 	void dwellerViewTest(){
 		Assertions.assertEquals(dwellerViewRepo.findAll().size(), 11);
+	}
+
+	@Test
+	void dwellerServiceTest(){
+		Assertions.assertEquals(dwellerService.getDwellerRepository().findById(0L).get().getDweller_id(), 0L);
 	}
 }

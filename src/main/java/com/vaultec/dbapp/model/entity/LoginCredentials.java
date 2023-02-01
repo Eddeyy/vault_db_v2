@@ -1,9 +1,17 @@
 package com.vaultec.dbapp.model.entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "LOGIN_CREDENTIALS", schema = "VAULT")
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = "dweller")
 public class LoginCredentials {
 
     @Id
@@ -14,28 +22,4 @@ public class LoginCredentials {
     @OneToOne(targetEntity = Dweller.class)
     @JoinColumn(name = "dweller_id")
     private Dweller dweller;
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Dweller getDweller() {
-        return dweller;
-    }
-
-    public void setDweller(Dweller dweller) {
-        this.dweller = dweller;
-    }
 }

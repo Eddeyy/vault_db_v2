@@ -4,6 +4,7 @@ import com.vaultec.dbapp.gui.ContentPanel;
 import com.vaultec.dbapp.gui.Window;
 import com.vaultec.dbapp.gui.cards.DwellersCard;
 import com.vaultec.dbapp.gui.log.LogWindow;
+import com.vaultec.dbapp.model.entity.Dweller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.io.IOException;
 @Configuration
 public class AppConfig {
 
-    @Bean(initMethod = "initComponents")
+    @Bean()
     public Window getWindow() throws IOException {
         return new Window();
     }
@@ -29,4 +30,7 @@ public class AppConfig {
     }
     @Bean
     public DwellersCard getDwellersCard(){ return new DwellersCard(); }
+
+    @Bean
+    public Dweller getCurrentDweller(){ return new Dweller(); }
 }

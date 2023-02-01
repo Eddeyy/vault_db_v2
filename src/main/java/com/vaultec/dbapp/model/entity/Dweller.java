@@ -16,10 +16,11 @@ import java.util.Objects;
 @ToString
 @Setter
 @Getter
+@EqualsAndHashCode(exclude = {"id", "loginCredentials"})
 public class Dweller {
     @Id
     @Column(name = "DWELLER_ID")
-    private Long id;
+    private Long id = -1L;
 
     private String firstname;
 
@@ -54,18 +55,4 @@ public class Dweller {
 
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dweller dweller = (Dweller) o;
-        return Objects.equals(firstname, dweller.firstname) && Objects.equals(surname, dweller.surname) && Objects.equals(birth_date, dweller.birth_date) && Objects.equals(status, dweller.status) && Objects.equals(job, dweller.job) && Objects.equals(bed_id, dweller.bed_id) && Objects.equals(items, dweller.items) && Objects.equals(loginCredentials, dweller.loginCredentials) && Arrays.equals(picture, dweller.picture);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(firstname, surname, birth_date, status, job, bed_id, items, loginCredentials);
-        result = 31 * result + Arrays.hashCode(picture);
-        return result;
-    }
 }
