@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "ROOMS", schema = "VAULT")
 public class Room {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_gen")
+    @SequenceGenerator(name = "room_gen", sequenceName = "ROOMS_ID_SEQ", allocationSize = 1)
     private Long room_id;
 
     @ManyToOne(targetEntity = Sector.class)

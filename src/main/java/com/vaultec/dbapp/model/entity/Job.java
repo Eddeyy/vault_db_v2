@@ -1,39 +1,27 @@
 package com.vaultec.dbapp.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.vaultec.dbapp.model.enums.JobType;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "JOBS", schema = "VAULT")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Job {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_gen")
+    @SequenceGenerator(name = "job_gen", sequenceName = "JOBS_ID_SEQ", allocationSize = 1)
     private Long job_id;
 
     private String job_title;
 
-    public Long getJob_id() {
-        return job_id;
-    }
-
-    public void setJob_id(Long job_id) {
-        this.job_id = job_id;
-    }
-
-    public String getJob_title() {
-        return job_title;
-    }
-
-    public void setJob_title(String job_title) {
-        this.job_title = job_title;
-    }
-
-    @Override
-    public String toString() {
-        return "Job{" +
-                "job_id=" + job_id +
-                ", job_title='" + job_title + '\'' +
-                '}';
+    public Job(JobType job_title) {
+        setJob_id((long) job_title.ordinal());
+        setJob_title(job_title.getJobTitle());
     }
 }

@@ -14,6 +14,8 @@ import lombok.ToString;
 public class Complaint {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comp_gen")
+    @SequenceGenerator(name = "comp_gen", sequenceName = "COMPLAINTS_ID_SEQ", allocationSize = 1)
     private Long comp_id;
 
     @ManyToOne(targetEntity = Dweller.class)
