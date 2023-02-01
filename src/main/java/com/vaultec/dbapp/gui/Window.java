@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import com.vaultec.dbapp.gui.background.BackgroundPanel;
 import com.vaultec.dbapp.gui.log.*;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
@@ -87,11 +89,16 @@ public class Window extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         logThread = new Thread(logWindow1);
         logThread.start();
+
+        //----- background -----
+        background= new BackgroundPanel(image);
     }
 
-    final BufferedImage image = ImageIO.read(new File("foreground.png"));
+    final BufferedImage image = ImageIO.read(new File("ramka.png"));
+    //final Image buttonIcon = ImageIO.read(getClass().getResource("back.png"));
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel panel1;
+    private BackgroundPanel background;
     @Resource(name = "logWindow")
     private LogWindow logWindow1;
     @Resource(name = "contentPanel")

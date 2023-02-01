@@ -24,7 +24,7 @@ import java.awt.*;
 @EntityScan(basePackages = "com.vaultec.dbapp.")
 public class SpringBootApp{
 
-	static ApplicationContext apc;
+	public static ApplicationContext apc;
 
 	public static void main(String[] args) {
 		apc = new SpringApplicationBuilder(SpringBootApp.class).headless(false).run(args);

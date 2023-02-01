@@ -25,7 +25,6 @@ import java.awt.event.ActionEvent;
 
 @Getter
 @Setter
-@Component
 public class DwellersCard extends DefaultCard {
     public void init() {
 

@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import com.vaultec.dbapp.DefaultCard;
+import com.vaultec.dbapp.SpringBootApp;
 import com.vaultec.dbapp.gui.cards.*;
 import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.services.auth.LoginService;
@@ -38,7 +39,7 @@ public class ContentPanel extends JPanel {
         cl.show(this, "MainMenu");
         logged = true;
         this.dweller = dweller;
-        Dwellers.setDwellerInfo(dweller);
+        ((DwellersCard)cards.get("DwellersScreen")).setDwellerInfo(dweller);
     }
 
 
@@ -74,12 +75,12 @@ public class ContentPanel extends JPanel {
         cards = new HashMap<String, DefaultCard>();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        cards.put("WarehouseScreen", new WarehouseCard());
-        cards.put("MainMenuScreen", new MainMenuCard());
-        cards.put("ComplaintsScreen", new ComplaintsCard());
-        cards.put("HospitalScreen", new HospitalCard());
-        cards.put("DwellersScreen", new DwellersCard());
-        cards.put("LoginScreen", new LoginCard());
+        cards.put("WarehouseScreen", SpringBootApp.apc.getBean(WarehouseCard.class));
+        cards.put("MainMenuScreen", SpringBootApp.apc.getBean(MainMenuCard.class));
+        cards.put("ComplaintsScreen", SpringBootApp.apc.getBean(ComplaintsCard.class));
+        cards.put("HospitalScreen", SpringBootApp.apc.getBean(HospitalCard.class));
+        cards.put("DwellersScreen", SpringBootApp.apc.getBean(DwellersCard.class));
+        cards.put("LoginScreen", SpringBootApp.apc.getBean(LoginCard.class));
 
         for (var card : cards.values()) {
             card.init();
@@ -135,10 +136,6 @@ public class ContentPanel extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-
-    @Resource(name = "dwellersCard")
-    private DwellersCard Dwellers;
-    private HospitalCard Hospital;
 
 
     Map<String, DefaultCard> cards;
