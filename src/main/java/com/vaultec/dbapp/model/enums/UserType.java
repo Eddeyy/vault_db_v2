@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum UserType {
-    DWELLER("dweller"),
+    UNEMPLOYED("dweller"),
     MANAGER("manager"),
     ENGINEER("engineer"),
     MEDIC("medic"),

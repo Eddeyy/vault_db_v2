@@ -54,7 +54,7 @@ public class DwellersCard extends DefaultCard {
         this.add(addUserButton, new TableLayoutConstraints(4, 3, 4, 3, TableLayoutConstraints.RIGHT, TableLayoutConstraints.TOP));
 
         try {
-            if (!UserValidatior.isAllowed(dwellerInfo.getJob().getJob_title().toUpperCase(),
+            if (!UserValidatior.isAllowed(currentDweller.getJob().getJob_title().toUpperCase(),
                     this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
                 addUserButton.setEnabled(false);
             }
@@ -99,7 +99,7 @@ public class DwellersCard extends DefaultCard {
     @UsableBy({UserType.MANAGER})
     private void addUser(ActionEvent e) {
         try {
-            if (!UserValidatior.isAllowed(dwellerInfo.getJob().getJob_title().toUpperCase(),
+            if (!UserValidatior.isAllowed(currentDweller.getJob().getJob_title().toUpperCase(),
                                           this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;
@@ -130,11 +130,16 @@ public class DwellersCard extends DefaultCard {
         addWindow.dispose();
     }
 
+    @Override
+    public void refresh(Dweller dweller) {
+        super.refresh(dweller);
+    }
+
+
     private JScrollPane tablePane;
     private JButton filterButton;
     private JButton addUserButton;
     private JTable table;
     private JTextField filterField;
     private AddUserWindow addWindow;
-    private Dweller dwellerInfo;
 }

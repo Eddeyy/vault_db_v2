@@ -79,6 +79,18 @@ public class MainMenuCard extends DefaultCard {
         userData.setText("id: " + dweller.getDweller_id());
     }
 
+    @Override
+    public void refresh(Dweller dweller) {
+        super.refresh(dweller);
+        setDataFields();
+    }
+
+    private void setDataFields() {
+        username.setText("name: "+currentDweller.getFirstname());
+        userType.setText("job: "+currentDweller.getJob().getJob_title());
+        userData.setText("id: "+currentDweller.getId());
+
+    }
     private JMenuBar menuBar1;
     private JMenu menu1;
     public JMenuItem warehouseOpt;

@@ -25,4 +25,8 @@ public abstract class DefaultCard extends JPanel {
     public void init() {
 
     }
+
+    public void refresh(Dweller dweller) {
+        currentDweller = dweller;
+    }
 }

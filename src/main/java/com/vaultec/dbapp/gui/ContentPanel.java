@@ -39,7 +39,10 @@ public class ContentPanel extends JPanel {
         cl.show(this, "MainMenu");
         logged = true;
         this.dweller = dweller;
-        ((DwellersCard)cards.get("DwellersScreen")).setDwellerInfo(dweller);
+        for(var card : cards.values()) {
+            card.refresh(dweller);
+        }
+        cards.get("DwellersScreen").refresh(dweller);
     }
 
 

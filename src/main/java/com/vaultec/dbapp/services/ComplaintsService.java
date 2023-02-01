@@ -1,7 +1,6 @@
 package com.vaultec.dbapp.services;
 
 import com.vaultec.dbapp.model.entity.Complaint;
-import com.vaultec.dbapp.model.entity.VerificationStatus;
 import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.repository.ComplaintsRepository;
 import com.vaultec.dbapp.validation.UsableBy;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +24,7 @@ public class ComplaintsService {
         return complaintsRepository.findAll();
     }
 
-    @UsableBy({UserType.DWELLER, UserType.ENGINEER, UserType.MEDIC, UserType.MANAGER, UserType.OVERSEER})
+    @UsableBy({UserType.UNEMPLOYED, UserType.ENGINEER, UserType.MEDIC, UserType.MANAGER, UserType.OVERSEER})
     public boolean addComplaint(Complaint complaint) {
 
         if(complaintsRepository.exists(Example.of(complaint))) {
