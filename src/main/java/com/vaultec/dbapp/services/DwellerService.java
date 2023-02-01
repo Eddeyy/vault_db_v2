@@ -24,7 +24,7 @@ public class DwellerService {
     public boolean createDweller(Dweller dwellerToSave) {
 
         if(dwellerRepository.exists(Example.of(dwellerToSave))) {
-            System.out.println("UNABLE TO CREATE DWELLER - DWELLER WITH GIVEN ");
+            System.out.println("UNABLE TO CREATE DWELLER - DWELLER ALREADY EXISTS");
             return false;
         }
 
@@ -43,7 +43,7 @@ public class DwellerService {
         return false;
     }
 
-    @UsableBy(UserType.MEDIC)
+    @UsableBy({UserType.MEDIC, UserType.OVERSEER, UserType.MANAGER})
     public boolean healDweller(Dweller dwellerToHeal) {
         Dweller existing = dwellerRepository.findById(dwellerToHeal.getDweller_id()).orElse(new Dweller());
 
@@ -51,8 +51,10 @@ public class DwellerService {
             System.out.println("DWELLER WITH GIVEN ID DOESN'T EXIST");
             return false;
         }
-        if(!existing.getStatus().equals("sick")) {
+
+        if(!(existing.getStatus().equals("sick") || existing.getStatus().equals("wounded")) ) {
             System.out.println("DWELLER IS ALREADY HEALED");
+            return false;
         }
 
         existing.setStatus("idle");

@@ -17,10 +17,12 @@ import java.util.List;
 public class DwellerViewService {
 
     private DwellerViewRepo dwellerViewRepo;
+
     @Autowired
     public void setDwellerViewRepo(DwellerViewRepo dwellerViewRepo) {
         this.dwellerViewRepo = dwellerViewRepo;
     }
+
     public List<DwellerView> findAll() {
         return this.dwellerViewRepo.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
