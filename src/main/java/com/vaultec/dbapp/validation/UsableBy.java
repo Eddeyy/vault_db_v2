@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface UsableBy {
 
-    UserType[] value();
+    UserType[] value() default UserType.OVERSEER;
 }
