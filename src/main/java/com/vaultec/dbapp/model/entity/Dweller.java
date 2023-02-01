@@ -19,6 +19,7 @@ import java.util.Objects;
 @EqualsAndHashCode(exclude = {"id", "loginCredentials"})
 public class Dweller {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "DWELLER_ID")
     private Long id;
 
