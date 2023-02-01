@@ -24,8 +24,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Component
 public class ContentPanel extends JPanel {
-    public ContentPanel() {
-    }
+
 
 
     private void loginButtonAction(ActionEvent e) {
@@ -120,7 +119,7 @@ public class ContentPanel extends JPanel {
             ((MainMenuCard)cards.get("MainMenuScreen")).warehouseOpt.addActionListener(this::warehouseOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).dwellersOpt.addActionListener(this::dwellersOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).hospitalOpt.addActionListener(this::hospitalOpt);
-            ((MainMenuCard)cards.get("MainMenuScreen")).generatorsOpt.addActionListener(this::hospitalOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).generatorsOpt.addActionListener(this::generatorsOpt);
         }
         add(cards.get("MainMenuScreen"), "MainMenu");
 
