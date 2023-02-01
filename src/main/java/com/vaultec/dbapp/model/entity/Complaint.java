@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
@@ -11,6 +12,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Table(name = "COMPLAINTS", schema = "VAULT")
+@DynamicUpdate
 public class Complaint {
 
     @Id

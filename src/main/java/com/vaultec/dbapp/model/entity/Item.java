@@ -2,9 +2,11 @@ package com.vaultec.dbapp.model.entity;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "ITEMS", schema = "VAULT")
+@DynamicUpdate
 public class Item {
 
     @Id
