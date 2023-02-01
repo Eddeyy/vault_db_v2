@@ -20,7 +20,7 @@ import java.util.Objects;
 public class Dweller {
     @Id
     @Column(name = "DWELLER_ID")
-    private Long id = -1L;
+    private Long id;
 
     private String firstname;
 
