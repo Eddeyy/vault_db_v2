@@ -16,6 +16,7 @@ public class MainMenuCard extends DefaultCard {
         complaintsOpt = new JMenuItem();
         dwellersOpt = new JMenuItem();
         hospitalOpt = new JMenuItem();
+        generatorsOpt = new JMenu();
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
@@ -86,15 +87,17 @@ public class MainMenuCard extends DefaultCard {
     }
 
     private void setDataFields() {
-        username.setText("name: "+currentDweller.getFirstname());
-        userType.setText("job: "+currentDweller.getJob().getJob_title());
-        userData.setText("id: "+currentDweller.getId());
+        username.setText("name: "+getCurrentDweller().getFirstname());
+        userType.setText("job: "+getCurrentDweller().getJob().getJob_title());
+        userData.setText("id: "+getCurrentDweller().getId());
 
     }
     private JMenuBar menuBar1;
     private JMenu menu1;
     public JMenuItem warehouseOpt;
     public JMenuItem complaintsOpt;
+
+    public JMenuItem generatorsOpt;
     public JMenuItem dwellersOpt;
     public JMenuItem hospitalOpt;
     private JLabel username;

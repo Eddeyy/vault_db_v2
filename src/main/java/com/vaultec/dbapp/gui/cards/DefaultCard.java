@@ -13,8 +13,9 @@ import javax.swing.JPanel;
 @Getter
 @Setter(onMethod = @__(@Autowired))
 public abstract class DefaultCard extends JPanel {
-
-    Dweller currentDweller;
+    @Setter
+    @Getter
+    private static Dweller currentDweller;
 
 
     private DwellerViewService dwellerViewService;

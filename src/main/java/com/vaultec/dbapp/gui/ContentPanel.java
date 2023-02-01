@@ -39,6 +39,9 @@ public class ContentPanel extends JPanel {
         cl.show(this, "MainMenu");
         logged = true;
         this.dweller = dweller;
+
+        DefaultCard.setCurrentDweller(dweller);
+
         for(var card : cards.values()) {
             card.refresh(dweller);
         }
@@ -66,6 +69,11 @@ public class ContentPanel extends JPanel {
         cl.show(this, "Hospital");
     }
 
+    private void generatorsOpt(ActionEvent e) {
+        CardLayout cl = (CardLayout)(this.getLayout());
+        cl.show(this, "Generators");
+    }
+
     private void logout(ActionEvent e) {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "LoginScreen");
@@ -84,6 +92,7 @@ public class ContentPanel extends JPanel {
         cards.put("HospitalScreen", SpringBootApp.apc.getBean(HospitalCard.class));
         cards.put("DwellersScreen", SpringBootApp.apc.getBean(DwellersCard.class));
         cards.put("LoginScreen", SpringBootApp.apc.getBean(LoginCard.class));
+        cards.put("GeneratorsScreen", SpringBootApp.apc.getBean(GeneratorsCard.class));
 
         for (var card : cards.values()) {
             card.init();
@@ -111,6 +120,7 @@ public class ContentPanel extends JPanel {
             ((MainMenuCard)cards.get("MainMenuScreen")).warehouseOpt.addActionListener(this::warehouseOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).dwellersOpt.addActionListener(this::dwellersOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).hospitalOpt.addActionListener(this::hospitalOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).generatorsOpt.addActionListener(this::hospitalOpt);
         }
         add(cards.get("MainMenuScreen"), "MainMenu");
 
@@ -131,6 +141,12 @@ public class ContentPanel extends JPanel {
 
         }
         add(cards.get("HospitalScreen"), "Hospital");
+
+        //======== Generators ========
+        {
+
+        }
+        add(cards.get("GeneratorsScreen"), "Generators");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 

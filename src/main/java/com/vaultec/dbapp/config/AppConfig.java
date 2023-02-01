@@ -43,6 +43,9 @@ public class AppConfig {
 
     @Bean
     public MainMenuCard getMainMenuCard(){ return new MainMenuCard(); }
+
+    @Bean
+    public GeneratorsCard getGeneratorsCard(){ return new GeneratorsCard(); }
     @Bean
     public Dweller getCurrentDweller(){ return new Dweller(); }
 }
