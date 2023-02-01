@@ -24,7 +24,8 @@ public class Complaint {
     @JoinColumn(name = "dweller_id")
     private Dweller dweller;
 
-    private String comp_subj;
+    @Column(name = "COMP_SUBJ")
+    private String compSubj;
 
     private String comp_desc;
 
