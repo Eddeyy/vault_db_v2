@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 public class Generator {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_gen")
+    @SequenceGenerator(name = "gen_gen", sequenceName = "GENERATORS_ID_SEQ", allocationSize = 1)
     private Long gen_id;
 
     @Column(nullable = false)

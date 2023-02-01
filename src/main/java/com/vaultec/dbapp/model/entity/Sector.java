@@ -9,6 +9,8 @@ import java.util.List;
 public class Sector {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sec_gen")
+    @SequenceGenerator(name = "sec_gen", sequenceName = "SECTORS_ID_SEQ", allocationSize = 1)
     private Long sector_id;
 
     private String sector_name;
