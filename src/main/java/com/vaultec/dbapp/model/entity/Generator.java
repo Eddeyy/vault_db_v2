@@ -19,7 +19,6 @@ public class Generator {
     @ManyToOne(targetEntity = VerificationStatus.class)
     private String ver_status;
 
-    @ManyToOne(targetEntity = GenStatus.class)
     private String gen_status;
 
     private String gen_type;
