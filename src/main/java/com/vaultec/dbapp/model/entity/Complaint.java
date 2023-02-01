@@ -26,7 +26,6 @@ public class Complaint {
 
     private String comp_desc;
 
-    @ManyToOne(targetEntity = VerificationStatus.class)
-    @JoinColumn(name = "VER_STATUS")
-    private VerificationStatus verStatus;
+    @Column(name = "VER_STATUS")
+    private String verStatus;
 }

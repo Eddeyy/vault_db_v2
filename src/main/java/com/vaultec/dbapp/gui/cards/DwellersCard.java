@@ -54,7 +54,8 @@ public class DwellersCard extends DefaultCard {
         this.add(addUserButton, new TableLayoutConstraints(4, 3, 4, 3, TableLayoutConstraints.RIGHT, TableLayoutConstraints.TOP));
 
         try {
-            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase())) {
+            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("init"))) {
                 addUserButton.setEnabled(false);
             }
         } catch(Exception ex) {
@@ -98,7 +99,8 @@ public class DwellersCard extends DefaultCard {
     @UsableBy({UserType.MANAGER})
     private void addUser(ActionEvent e) {
         try {
-            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase())) {
+            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;
             }

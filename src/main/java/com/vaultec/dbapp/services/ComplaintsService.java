@@ -48,7 +48,7 @@ public class ComplaintsService {
             if(comp == null) {
                 return;
             }
-            comp.getVerStatus().setStatus(verStatus);
+            comp.setVerStatus(verStatus);
             complaintsRepository.save(comp);
         });
 

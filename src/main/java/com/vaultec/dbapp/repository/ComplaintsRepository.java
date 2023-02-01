@@ -12,5 +12,5 @@ public interface ComplaintsRepository extends JpaRepository<Complaint, Long>, Cu
 
     List<Complaint> findAllByDwellerId(Long id);
 
-    List<Complaint> findAllByVerStatusStatus(String ver_status);
+    List<Complaint> findAllByVerStatus(String ver_status);
 }

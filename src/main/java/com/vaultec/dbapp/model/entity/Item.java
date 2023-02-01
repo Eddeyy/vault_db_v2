@@ -16,9 +16,8 @@ public class Item {
 
     private String item_type;
 
-    @ManyToOne(targetEntity = VerificationStatus.class)
-    @JoinColumn(name = "ver_status")
-    private VerificationStatus ver_status;
+    @Column(name = "VER_STATUS")
+    private String verStatus;
 
     @ManyToOne(targetEntity = Dweller.class)
     @JoinColumn(name = "dweller_id")

@@ -55,7 +55,7 @@ public class GeneratorsCard extends DefaultCard {
 
         try {
             if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
-                    this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
+            this.getClass().getDeclaredMethod("init"))) {
                 addUserButton.setEnabled(false);
             }
         } catch(Exception ex) {
@@ -105,7 +105,7 @@ public class GeneratorsCard extends DefaultCard {
     private void updateGenerator(ActionEvent e) {
         try {
             if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
-                    this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
+                    this.getClass().getDeclaredMethod("updateGenerator", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;
             }

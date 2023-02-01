@@ -68,7 +68,7 @@ class SpringBootAppTests {
 
 	@Test
 	void complaintTest2() {
-		Assertions.assertEquals(complaintsRepository.findAllByVerStatusStatus("pending").size(), 1);
+		Assertions.assertEquals(complaintsRepository.findAllByVerStatus("pending").size(), 1);
 	}
 
 	@Test
