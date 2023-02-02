@@ -25,7 +25,7 @@ public class ItemService {
         return this.itemsRepository.findAllByDwellerId(id);
     }
 
-    List<Item> findAll() {
+    public List<Item> findAll() {
         return this.itemsRepository.findAll();
     }
 

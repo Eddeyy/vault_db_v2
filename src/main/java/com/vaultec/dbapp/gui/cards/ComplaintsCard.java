@@ -1,5 +1,7 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.gui.utility.AddComplaintWindow;
+import com.vaultec.dbapp.gui.utility.AddUserWindow;
 import com.vaultec.dbapp.model.entity.Complaint;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
@@ -9,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -24,7 +27,7 @@ public class ComplaintsCard extends DefaultCard {
 
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 0.60, 0.2, 0.2},
-                {TableLayout.PREFERRED, 0.50, 0.2, 0.2, 0.2}}));
+                {TableLayout.PREFERRED, 0.2, 0.2, 0.2, 0.4}}));
         ((TableLayout) this.getLayout()).setHGap(5);
         ((TableLayout) this.getLayout()).setVGap(15);
 
@@ -47,13 +50,12 @@ public class ComplaintsCard extends DefaultCard {
 
         {
             labelPane.setViewportView(complaints);
-            labelPane.setMaximumSize(new Dimension(400, 300));
+            labelPane.setMaximumSize(new Dimension(400, 200));
         }
         this.add(labelPane, new TableLayoutConstraints(0, 0, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-
         //---- add ----
-//        add.setText("add");
-//        this.add(add, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        add.setText("add");
+        this.add(add, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
 
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -61,7 +63,10 @@ public class ComplaintsCard extends DefaultCard {
                 // do some actions here, for example
                 // print first column value from selected row
                 String subject = table.getValueAt(table.getSelectedRow(), 0).toString();
-
+                if(subject.equals(">>NOWA SKARGA<<")) {
+                    createDialogueWindow();
+                    return;
+                }
                 String text = "<html><p>";
                 for(var complaint : complaintList) {
                     if(complaint.getCompSubj().equals(subject)) {
@@ -73,10 +78,26 @@ public class ComplaintsCard extends DefaultCard {
 
                 complaints.setText(text);
             }
+
         });
 
     }
 
+    void createDialogueWindow() {
+        dialogueWindow = new AddComplaintWindow();
+        dialogueWindow.setVisible(true);
+        dialogueWindow.addButton.addActionListener(this::addComplaint);
+    }
+
+    private void addComplaint(ActionEvent actionEvent) {
+        Complaint complaint = new Complaint();
+        complaint.setDweller(getCurrentDweller());
+        complaint.setCompSubj(dialogueWindow.subjectField.getText());
+        complaint.setComp_desc(dialogueWindow.textArea.getText());
+
+        getComplaintsService().addComplaint(complaint);
+        fetch();
+    }
 
     private void fetch() {
         complaintList = this.getComplaintsService().findAll();
@@ -111,7 +132,7 @@ public class ComplaintsCard extends DefaultCard {
     private JTable table;
     private JButton refresh;
     private JButton add;
-
+    private AddComplaintWindow dialogueWindow;
     List<Complaint> complaintList;
     List<String> distinctComplaintList;
 }

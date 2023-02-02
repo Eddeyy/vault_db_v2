@@ -41,7 +41,7 @@ public class Dweller {
     @OneToMany(targetEntity = Item.class, mappedBy = "dweller", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
 
-    @OneToOne(targetEntity = LoginCredentials.class, mappedBy = "dweller")
+    @OneToOne(mappedBy = "dweller")
     private LoginCredentials loginCredentials;
 
     public Long getDweller_id() {

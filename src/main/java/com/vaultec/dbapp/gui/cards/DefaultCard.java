@@ -5,6 +5,7 @@ import com.vaultec.dbapp.model.enums.JobType;
 import com.vaultec.dbapp.services.ComplaintsService;
 import com.vaultec.dbapp.services.DwellerService;
 import com.vaultec.dbapp.services.GeneratorService;
+import com.vaultec.dbapp.services.ItemService;
 import com.vaultec.dbapp.services.view.DwellerViewService;
 import jakarta.annotation.Resource;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public abstract class DefaultCard extends JPanel {
     private GeneratorService generatorService;
     private ComplaintsService complaintsService;
     private DwellerService dwellerService;
+    private ItemService itemService;
 
 
 
