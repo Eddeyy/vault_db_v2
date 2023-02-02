@@ -33,6 +33,7 @@ public class VerificationCard extends DefaultCard {
         tablePane = new JScrollPane();
         filterField = new JTextField();
         filterButton = new JButton();
+        commitButton = new JButton();
 
         itemsButton = new JButton();
         generatorsButton = new JButton();
@@ -54,19 +55,23 @@ public class VerificationCard extends DefaultCard {
         filterButton.addActionListener(this::filter);
         this.add(filterButton, new TableLayoutConstraints(3, 3, 3, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
+        commitButton.setText("commit");
+        commitButton.addActionListener(this::filter);
+        this.add(commitButton, new TableLayoutConstraints(3, 4, 3, 4, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
         //---- button3 ----
         itemsButton.setText("items");
-        itemsButton.addActionListener(this::fetchItems);
+        itemsButton.addActionListener(this::refreshItems);
         this.add(itemsButton, "5,  2");
 
         //---- button3 ----
         generatorsButton.setText("generators");
-        generatorsButton.addActionListener(this::fetchGenerators);
+        generatorsButton.addActionListener(this::refreshGenerators);
         this.add(generatorsButton, "5,  3");
 
         //---- button3 ----
         complaintsButton.setText("complaints");
-        complaintsButton.addActionListener(this::fetchComplaints);
+        complaintsButton.addActionListener(this::refreshComplaints);
         this.add(complaintsButton, "5,  4");
 
         fetch();
@@ -112,7 +117,7 @@ public class VerificationCard extends DefaultCard {
     }
 
 
-    private void fetchItems(ActionEvent event) {
+    private void fetchItems() {
         List<Item> itemList = this.getItemService().findAll();
         Field[] header = Item.class.getDeclaredFields();
         String[] headerNames = Arrays.stream(header).map(Field::getName).toArray(String[]::new);
@@ -134,29 +139,28 @@ public class VerificationCard extends DefaultCard {
         table = new JTable(new DefaultTableModel(data, headerNames)) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 3;
             }
         };
-
         tablePane.setViewportView(table);
         this.add(tablePane, new TableLayoutConstraints(1, 1, 5, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         this.add(filterField, new TableLayoutConstraints(1, 3, 1, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
-    private void fetchGenerators(ActionEvent event) {
-        generatorList = this.getGeneratorService().findAll();
-        Field[] header = GeneratorView.class.getDeclaredFields();
+    private void fetchGenerators() {
+        generatorList = this.getGeneratorService().getGeneratorRepository().findAll();
+        Field[] header = Generator.class.getDeclaredFields();
         String[] headerNames = Arrays.stream(header).map(Field::getName).toArray(String[]::new);
 
         Object[][] data = new Object[generatorList.size()][headerNames.length];
 
         for (int j = 0; j < generatorList.size(); j++) {
             int i = 0;
-            for (Field field : GeneratorView.class.getDeclaredFields()) {
+            for (Field field : Generator.class.getDeclaredFields()) {
                 field.setAccessible(true);
                 try {
-                    data[j][i++] = new PropertyDescriptor(field.getName(), GeneratorView.class).getReadMethod().invoke(generatorList.get(j)).toString();
+                    data[j][i++] = new PropertyDescriptor(field.getName(), Generator.class).getReadMethod().invoke(generatorList.get(j)).toString();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -166,9 +170,10 @@ public class VerificationCard extends DefaultCard {
         table = new JTable(new DefaultTableModel(data, headerNames)) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 3;
             }
         };
+
 
         tablePane.setViewportView(table);
         this.add(tablePane, new TableLayoutConstraints(1, 1, 5, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
@@ -176,14 +181,14 @@ public class VerificationCard extends DefaultCard {
         this.add(filterField, new TableLayoutConstraints(1, 3, 1, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
     }
 
-    private void fetchComplaints(ActionEvent event) {
+    private void fetchComplaints() {
         complaintList = this.getComplaintsService().findAll();
 
         try {
             Field[] headers = Complaint.class.getDeclaredFields();
             String[] headerNames = Arrays.stream(headers).map(Field::getName).toArray(String[]::new);
 
-            Object[][] data = new Object[complaintList.size()][headers.length];
+            Object[][] data = new Object[complaintList.size()-1][headers.length];
 
             for (int j = 0; j < complaintList.size(); j++) {
                 int i = 0;
@@ -200,10 +205,9 @@ public class VerificationCard extends DefaultCard {
             table = new JTable(new DefaultTableModel(data, headerNames)) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false;
+                    return column == 4;
                 }
             };
-
             tablePane.setViewportView(table);
             this.add(tablePane, new TableLayoutConstraints(1, 1, 5, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
@@ -213,9 +217,93 @@ public class VerificationCard extends DefaultCard {
         }
     }
 
+    private void refreshComplaints(ActionEvent event) {
+        commitButton.addActionListener(this::updateCompl);
+        fetchComplaints();
+    }
+    private void refreshGenerators(ActionEvent event) {
+        commitButton.addActionListener(this::updateGen);
+        fetchGenerators();
+    }
+    private void refreshItems(ActionEvent event) {
+        commitButton.addActionListener(this::updateItem);
+        fetchItems();
+    }
+
+    @UsableBy({UserType.MANAGER})
+    public void updateGen(ActionEvent e) {
+        try {
+            if (!UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("updateGenerator", ActionEvent.class))) {
+                System.out.println("User not allowed to perform this operation");
+                return;
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+        DefaultTableModel tm = (DefaultTableModel) table.getModel();
+        if(table.getSelectedRow() == -1)
+            return;
+        Vector rowData = tm.getDataVector().elementAt(table.getSelectedRow());
+
+        Vector<Long> ids = new Vector<>();
+        ids.add(Long.parseLong((String) rowData.get(0)));
+
+        getGeneratorService().setVerStatus(ids, rowData.get(3).toString());
+        fetchGenerators();
+    }
+
+    @UsableBy({UserType.MANAGER})
+    public void updateCompl(ActionEvent e) {
+        try {
+            if (!UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("updateCompl", ActionEvent.class))) {
+                System.out.println("User not allowed to perform this operation");
+                return;
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+        DefaultTableModel tm = (DefaultTableModel) table.getModel();
+        if(table.getSelectedRow() == -1)
+            return;
+        Vector rowData = tm.getDataVector().elementAt(table.getSelectedRow());
+
+        Vector<Long> ids = new Vector<>();
+        ids.add(Long.parseLong(rowData.get(0).toString()));
+
+        getComplaintsService().setVerStatus(ids, rowData.get(4).toString());
+        fetchComplaints();
+    }
+    @UsableBy({UserType.MANAGER})
+    public void updateItem(ActionEvent e) {
+        try {
+            if (!UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("updateItem", ActionEvent.class))) {
+                System.out.println("User not allowed to perform this operation");
+                return;
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+        DefaultTableModel tm = (DefaultTableModel) table.getModel();
+        if(table.getSelectedRow() == -1)
+            return;
+        Vector rowData = tm.getDataVector().elementAt(table.getSelectedRow());
+
+        Vector<Long> ids = new Vector<>();
+        ids.add(Long.parseLong(rowData.get(0).toString()));
+
+        getComplaintsService().setVerStatus(ids, rowData.get(3).toString());
+        fetchItems();
+    }
 
     private JScrollPane tablePane;
     private JButton filterButton;
+    private JButton commitButton;
     private JButton itemsButton;
     private JButton generatorsButton;
     private JButton complaintsButton;
@@ -224,6 +312,6 @@ public class VerificationCard extends DefaultCard {
 
     List<Complaint> complaintList;
     List<Item> itemList;
-    List<GeneratorView> generatorList;
+    List<Generator> generatorList;
 
 }

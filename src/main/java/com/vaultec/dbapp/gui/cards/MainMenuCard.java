@@ -50,8 +50,8 @@ public class MainMenuCard extends DefaultCard {
                 menu1.add(dwellersOpt);
 
                 //---- hospitalOpt
-                hospitalOpt.setText("hospital");
-                menu1.add(hospitalOpt);
+//                hospitalOpt.setText("hospital");
+//                menu1.add(hospitalOpt);
 
                 generatorsOpt.setText("generators");
                 menu1.add(generatorsOpt);
