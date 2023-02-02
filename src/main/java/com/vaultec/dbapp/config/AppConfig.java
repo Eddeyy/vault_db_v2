@@ -47,6 +47,8 @@ public class AppConfig {
     @Bean
     public GeneratorsCard getGeneratorsCard(){ return new GeneratorsCard(); }
     @Bean
+    public VerificationCard getVerificationCard(){ return new VerificationCard(); }
+    @Bean
     public Dweller getCurrentDweller(){ return new Dweller(); }
 
 }

@@ -73,6 +73,11 @@ public class ContentPanel extends JPanel {
         cl.show(this, "Generators");
     }
 
+    private void verificationOpt(ActionEvent e) {
+        CardLayout cl = (CardLayout)(this.getLayout());
+        cl.show(this, "Verification");
+    }
+
     private void logout(ActionEvent e) {
         CardLayout cl = (CardLayout)(this.getLayout());
         cl.show(this, "LoginScreen");
@@ -92,6 +97,7 @@ public class ContentPanel extends JPanel {
         cards.put("DwellersScreen", SpringBootApp.apc.getBean(DwellersCard.class));
         cards.put("LoginScreen", SpringBootApp.apc.getBean(LoginCard.class));
         cards.put("GeneratorsScreen", SpringBootApp.apc.getBean(GeneratorsCard.class));
+        cards.put("VerificationScreen", SpringBootApp.apc.getBean(VerificationCard.class));
 
         for (var card : cards.values()) {
             card.init();
@@ -120,6 +126,8 @@ public class ContentPanel extends JPanel {
             ((MainMenuCard)cards.get("MainMenuScreen")).dwellersOpt.addActionListener(this::dwellersOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).hospitalOpt.addActionListener(this::hospitalOpt);
             ((MainMenuCard)cards.get("MainMenuScreen")).generatorsOpt.addActionListener(this::generatorsOpt);
+            ((MainMenuCard)cards.get("MainMenuScreen")).verificationOpt.addActionListener(this::verificationOpt);
+
         }
         add(cards.get("MainMenuScreen"), "MainMenu");
 
@@ -146,6 +154,12 @@ public class ContentPanel extends JPanel {
 
         }
         add(cards.get("GeneratorsScreen"), "Generators");
+
+        //========== Verification =======
+        {
+
+        }
+        add(cards.get("VerificationScreen"), "Verification");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 

@@ -18,6 +18,7 @@ public class MainMenuCard extends DefaultCard {
         dwellersOpt = new JMenuItem();
         hospitalOpt = new JMenuItem();
         generatorsOpt = new JMenuItem();
+        verificationOpt = new JMenuItem();
         username = new JLabel();
         userType = new JLabel();
         logout = new JButton();
@@ -54,6 +55,9 @@ public class MainMenuCard extends DefaultCard {
 
                 generatorsOpt.setText("generators");
                 menu1.add(generatorsOpt);
+
+                verificationOpt.setText("verification");
+                menu1.add(verificationOpt);
             }
             menuBar1.add(menu1);
         }
@@ -70,6 +74,8 @@ public class MainMenuCard extends DefaultCard {
         //---- userData ----
         userData.setText("otherData");
         this.add(userData, new TableLayoutConstraints(2, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+
 
         //---- logout ----
         logout.setText("logout");
@@ -103,6 +109,7 @@ public class MainMenuCard extends DefaultCard {
     public JMenuItem generatorsOpt;
     public JMenuItem dwellersOpt;
     public JMenuItem hospitalOpt;
+    public JMenuItem verificationOpt;
     private JLabel username;
     private JLabel userType;
     private JLabel userData;

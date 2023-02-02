@@ -59,32 +59,11 @@ public class ComplaintsCard extends DefaultCard {
         this.add(add, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
 
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                String subject = table.getValueAt(table.getSelectedRow(), 0).toString();
-                if(subject.equals(">>NOWA SKARGA<<")) {
-                    createDialogueWindow();
-                    return;
-                }
-                String text = "<html><p>";
-                for(var complaint : complaintList) {
-                    if(complaint.getCompSubj().equals(subject)) {
-                        text += complaint.getComp_desc();
-                        text += "<br>=========================<br>";
-                    }
-                }
-                text += "</p></html>";
-
-                complaints.setText(text);
-            }
-
-        });
-
     }
 
     void createDialogueWindow() {
+        if(dialogueWindow != null && dialogueWindow.isActive())
+            return;
         dialogueWindow = new AddComplaintWindow();
         dialogueWindow.setVisible(true);
         dialogueWindow.addButton.addActionListener(this::addComplaint);
@@ -97,7 +76,10 @@ public class ComplaintsCard extends DefaultCard {
         complaint.setComp_desc(dialogueWindow.textArea.getText());
 
         getComplaintsService().addComplaint(complaint);
+        dialogueWindow.dispose();
         fetch();
+        table.setColumnSelectionInterval(0,0);
+        table.setRowSelectionInterval(0,0);
     }
 
     private void fetch() {
@@ -124,7 +106,32 @@ public class ComplaintsCard extends DefaultCard {
                     return false;
                 }
             };
-        } catch(Exception e) {}
+
+            table.getSelectionModel().addListSelectionListener(event -> {
+                // do some actions here, for example
+                // print first column value from selected row
+                String subject = table.getValueAt(table.getSelectedRow(), 0).toString();
+                if(subject.equals(">>NOWA SKARGA<<")) {
+                    createDialogueWindow();
+                    return;
+                }
+                String text = "<html><p>";
+                for(var complaint : complaintList) {
+                    if(complaint.getCompSubj().equals(subject)) {
+                        text += complaint.getComp_desc();
+                        text += "<br>=========================<br>";
+                    }
+                }
+                text += "</p></html>";
+
+                complaints.setText(text);
+
+            });
+            tablePane.setViewportView(table);
+        } catch(Exception e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     private JLabel complaints;
