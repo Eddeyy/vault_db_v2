@@ -16,7 +16,7 @@ import java.util.Objects;
 @ToString
 @Setter
 @Getter
-@EqualsAndHashCode(exclude = {"id", "loginCredentials"})
+@EqualsAndHashCode
 public class Dweller {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dweller_generator")

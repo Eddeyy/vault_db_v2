@@ -19,7 +19,7 @@ public class LoginCredentials {
 
     private String password;
 
-    @OneToOne(targetEntity = Dweller.class)
-    @JoinColumn(name = "dweller_id")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "dweller_id", referencedColumnName = "dweller_id")
     private Dweller dweller;
 }

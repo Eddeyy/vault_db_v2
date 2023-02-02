@@ -1,6 +1,7 @@
 package com.vaultec.dbapp.services;
 
 import com.vaultec.dbapp.gui.cards.DefaultCard;
+import com.vaultec.dbapp.model.entity.Complaint;
 import com.vaultec.dbapp.model.entity.Generator;
 import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.model.mapper.VaultMapper;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -65,6 +67,41 @@ public class GeneratorService {
         generatorRepository.save(result);
 
         System.out.println("UPDATED GENERATOR STATUS SUCCESSFULLY");
+        return true;
+    }
+
+    @UsableBy({UserType.MANAGER, UserType.OVERSEER})
+    public boolean setVerStatus(List<Long> genId, String verStatus) {
+
+        try {
+            if (!UserValidator.isAllowed(
+                    DefaultCard.getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("setVerStatus", List.class, String.class)
+            )) {
+                System.out.println("USER IS UNABLE TO PERFORM VERIFICATION.");
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        List<Generator> generators =
+                genId.stream()
+                        .map( id -> generatorRepository.findById(id).orElse(null))
+                        .toList();
+
+        generators.forEach( generator -> {
+            if(generator == null) {
+                return;
+            }
+            generator.setVerStatus(verStatus);
+            generatorRepository.save(generator);
+        });
+
+        if(generators.contains(null)) {
+            System.out.println("COMPLETED VERIFICATION PROCESS WITH SOME ERRORS.");
+        }
+
+        System.out.println("VERIFIED " + generators.stream().filter(Objects::nonNull).count() + " GENERATORS SUCCESSFULLY.");
         return true;
     }
 }

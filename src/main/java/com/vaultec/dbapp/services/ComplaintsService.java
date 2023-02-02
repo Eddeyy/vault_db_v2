@@ -40,12 +40,8 @@ public class ComplaintsService {
             e.printStackTrace();
         }
 
-        if(complaintsRepository.exists(Example.of(complaint))) {
-            System.out.println("UNABLE TO CREATE COMPLAINT - THIS COMPLAINT ALREADY EXISTS");
-            return false;
-        }
-
         complaintsRepository.save(complaint);
+        System.out.println("ADDED COMPLAINT SUCCESSFULLY.");
         return true;
     }
 
