@@ -33,6 +33,11 @@ public class ItemService {
         return this.itemsRepository.findAll();
     }
 
+    public boolean addItem(Item item) {
+        this.itemsRepository.save(item);
+        return true;
+    }
+
     boolean toggleReservation(Long itemId) {
         Optional<Item> existing = itemsRepository.findById(itemId);
 
