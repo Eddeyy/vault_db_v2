@@ -23,8 +23,8 @@ public class ComplaintsCard extends DefaultCard {
         labelPane = new JScrollPane();
 
         this.setLayout(new TableLayout(new double[][]{
-                {TableLayout.PREFERRED, 0.75, 0.2, 0.05},
-                {TableLayout.PREFERRED, 0.50, 0.2, 0.2, 0.1}}));
+                {TableLayout.PREFERRED, 0.60, 0.2, 0.2},
+                {TableLayout.PREFERRED, 0.50, 0.2, 0.2, 0.2}}));
         ((TableLayout) this.getLayout()).setHGap(5);
         ((TableLayout) this.getLayout()).setVGap(15);
 
@@ -43,19 +43,17 @@ public class ComplaintsCard extends DefaultCard {
         {
             tablePane.setViewportView(table);
         }
-        this.add(tablePane, new TableLayoutConstraints(2, 0, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        this.add(tablePane, new TableLayoutConstraints(2, 0, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
         {
             labelPane.setViewportView(complaints);
+            labelPane.setMaximumSize(new Dimension(400, 300));
         }
         this.add(labelPane, new TableLayoutConstraints(0, 0, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-        //---- refresh ----
-//        refresh.setText("refresh");
-//        this.add(refresh, new TableLayoutConstraints(3, 1, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-//
-//        //---- add ----
+
+        //---- add ----
 //        add.setText("add");
-//        this.add(add, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+//        this.add(add, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
 
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){

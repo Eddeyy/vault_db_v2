@@ -6,7 +6,7 @@ import com.vaultec.dbapp.model.entity.Job;
 import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.model.view.DwellerView;
 import com.vaultec.dbapp.validation.UsableBy;
-import com.vaultec.dbapp.validation.UserValidatior;
+import com.vaultec.dbapp.validation.UserValidator;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 import lombok.Getter;
@@ -55,7 +55,7 @@ public class DwellersCard extends DefaultCard {
         this.add(addUserButton, new TableLayoutConstraints(4, 3, 4, 3, TableLayoutConstraints.RIGHT, TableLayoutConstraints.TOP));
 
         try {
-            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+            if (!UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
                 this.getClass().getDeclaredMethod("init"))) {
                 addUserButton.setEnabled(false);
             }
@@ -83,7 +83,12 @@ public class DwellersCard extends DefaultCard {
             }
         }
 
-        table = new JTable(new DefaultTableModel(data, headerNames));
+        table = new JTable(new DefaultTableModel(data, headerNames)) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return !(isColumnSelected(0) || isColumnSelected(2));
+            }
+        };
         tablePane.setViewportView(table);
         this.add(tablePane, new TableLayoutConstraints(1, 1, 5, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
@@ -100,7 +105,7 @@ public class DwellersCard extends DefaultCard {
     @UsableBy({UserType.MANAGER})
     private void addUser(ActionEvent e) {
         try {
-            if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+            if (!UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
                 this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;

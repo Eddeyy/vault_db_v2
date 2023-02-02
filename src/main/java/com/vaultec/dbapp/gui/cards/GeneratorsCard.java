@@ -9,7 +9,7 @@ import com.vaultec.dbapp.model.view.DwellerView;
 import com.vaultec.dbapp.model.view.GeneratorView;
 import com.vaultec.dbapp.services.GeneratorService;
 import com.vaultec.dbapp.validation.UsableBy;
-import com.vaultec.dbapp.validation.UserValidatior;
+import com.vaultec.dbapp.validation.UserValidator;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 import lombok.Getter;
@@ -30,7 +30,7 @@ import java.util.Vector;
 @Setter
 public class GeneratorsCard extends DefaultCard {
     public void init() {
-
+        super.init();
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},
                 {TableLayout.PREFERRED, 347, 54, 26, 53}}));
@@ -58,7 +58,7 @@ public class GeneratorsCard extends DefaultCard {
         this.add(genStatusButton, new TableLayoutConstraints(4, 3, 4, 3, TableLayoutConstraints.RIGHT, TableLayoutConstraints.TOP));
 
         try {
-            if (UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+            if (UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
             this.getClass().getDeclaredMethod("init"))) {
                 genStatusButton.setEnabled(false);
             }
@@ -108,7 +108,7 @@ public class GeneratorsCard extends DefaultCard {
     @UsableBy({UserType.ENGINEER})
     private void updateGenerator(ActionEvent e) {
         try {
-            if (UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
+            if (UserValidator.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
                     this.getClass().getDeclaredMethod("updateGenerator", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;

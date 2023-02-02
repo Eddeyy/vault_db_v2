@@ -1,5 +1,7 @@
 package com.vaultec.dbapp.gui.cards;
 import com.vaultec.dbapp.model.entity.Dweller;
+import com.vaultec.dbapp.model.entity.Job;
+import com.vaultec.dbapp.model.enums.JobType;
 import com.vaultec.dbapp.services.ComplaintsService;
 import com.vaultec.dbapp.services.DwellerService;
 import com.vaultec.dbapp.services.GeneratorService;
@@ -28,7 +30,9 @@ public abstract class DefaultCard extends JPanel {
 
 
     public void init() {
-
+        currentDweller = new Dweller();
+        currentDweller.setDweller_id(-1L);
+        currentDweller.setJob(new Job(JobType.UNEMPLOYED));
     }
 
     public void refresh(Dweller dweller) {

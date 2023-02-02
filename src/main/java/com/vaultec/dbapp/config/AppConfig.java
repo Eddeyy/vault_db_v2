@@ -48,4 +48,5 @@ public class AppConfig {
     public GeneratorsCard getGeneratorsCard(){ return new GeneratorsCard(); }
     @Bean
     public Dweller getCurrentDweller(){ return new Dweller(); }
+
 }
