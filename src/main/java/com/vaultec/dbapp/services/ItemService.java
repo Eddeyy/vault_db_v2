@@ -56,7 +56,10 @@ public class ItemService {
             return false;
         }
 
-        item.setDweller(dwellerRepository.findById(DefaultCard.getCurrentDweller().getDweller_id()).get());
+        if(item.getDweller().getDweller_id().equals(DefaultCard.getCurrentDweller().getDweller_id()))
+            item.setDweller(dwellerRepository.findById(-1L).get());
+        else
+            item.setDweller(dwellerRepository.findById(DefaultCard.getCurrentDweller().getDweller_id()).get());
 
         itemsRepository.save(item);
 
