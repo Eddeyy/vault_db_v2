@@ -13,5 +13,6 @@ public class UserValidatior {
     public static boolean isAllowed(String job, Method method) {
 
         return Arrays.stream(method.getAnnotation(UsableBy.class).value()).anyMatch(val -> val == UserType.valueOf(job));
+
     }
 }

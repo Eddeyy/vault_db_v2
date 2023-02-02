@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -55,7 +56,7 @@ public class DwellersCard extends DefaultCard {
 
         try {
             if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
-                    this.getClass().getDeclaredMethod("init"))) {
+                this.getClass().getDeclaredMethod("init"))) {
                 addUserButton.setEnabled(false);
             }
         } catch(Exception ex) {
@@ -100,7 +101,7 @@ public class DwellersCard extends DefaultCard {
     private void addUser(ActionEvent e) {
         try {
             if (!UserValidatior.isAllowed(getCurrentDweller().getJob().getJob_title().toUpperCase(),
-                    this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
+                this.getClass().getDeclaredMethod("addUser", ActionEvent.class))) {
                 System.out.println("User not allowed to perform this operation");
                 return;
             }

@@ -59,4 +59,5 @@ public class ComplaintsService {
         System.out.println("VERIFIED " + complaints.stream().filter(Objects::nonNull).count() + " COMPLAINTS SUCCESSFULLY.");
         return true;
     }
+
 }

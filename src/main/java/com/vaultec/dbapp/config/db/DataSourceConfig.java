@@ -54,7 +54,7 @@ public class DataSourceConfig {
 
         config.setConnectionTimeout(3000);
 
-        config.setAutoCommit(false);
+        config.setAutoCommit(true);
 
         return new HikariDataSource(config);
     }

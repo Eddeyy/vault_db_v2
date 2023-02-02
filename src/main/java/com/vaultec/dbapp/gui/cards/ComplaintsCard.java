@@ -1,53 +1,119 @@
 package com.vaultec.dbapp.gui.cards;
 
+import com.vaultec.dbapp.model.entity.Complaint;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstraints;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.util.List;
+
 
 public class ComplaintsCard extends DefaultCard {
 
     public void init() {
         complaints = new JLabel();
-        scrollPane2 = new JScrollPane();
-        list1 = new JList();
+        tablePane = new JScrollPane();
         refresh = new JButton();
         add = new JButton();
-    }
+        labelPane = new JScrollPane();
 
-    public ComplaintsCard() {
-        init();
         this.setLayout(new TableLayout(new double[][]{
-                {489, TableLayout.PREFERRED, 56, 69, 20},
-                {364, 25, 27, 37}}));
+                {TableLayout.PREFERRED, 0.75, 0.2, 0.05},
+                {TableLayout.PREFERRED, 0.50, 0.2, 0.2, 0.1}}));
         ((TableLayout) this.getLayout()).setHGap(5);
         ((TableLayout) this.getLayout()).setVGap(15);
 
         //---- complaints ----
-        complaints.setText("skargi");
+        complaints.setOpaque(true);
         complaints.setBackground(Color.white);
         complaints.setForeground(Color.black);
-        this.add(complaints, new TableLayoutConstraints(0, 0, 0, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        complaints.repaint();
+        complaints.setAlignmentX(SwingConstants.RIGHT);
+        complaints.setAlignmentY(SwingConstants.TOP);
+        complaints.setMaximumSize(new Dimension(400, 300));
 
+
+        fetch();
         //======== scrollPane2 ========
         {
-            scrollPane2.setViewportView(list1);
+            tablePane.setViewportView(table);
         }
-        this.add(scrollPane2, new TableLayoutConstraints(2, 0, 3, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+        this.add(tablePane, new TableLayoutConstraints(2, 0, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
+        {
+            labelPane.setViewportView(complaints);
+        }
+        this.add(labelPane, new TableLayoutConstraints(0, 0, 1, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
         //---- refresh ----
-        refresh.setText("refresh");
-        this.add(refresh, new TableLayoutConstraints(3, 1, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+//        refresh.setText("refresh");
+//        this.add(refresh, new TableLayoutConstraints(3, 1, 3, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+//
+//        //---- add ----
+//        add.setText("add");
+//        this.add(add, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-        //---- add ----
-        add.setText("add");
-        this.add(add, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                String subject = table.getValueAt(table.getSelectedRow(), 0).toString();
+
+                String text = "<html><p>";
+                for(var complaint : complaintList) {
+                    if(complaint.getCompSubj().equals(subject)) {
+                        text += complaint.getComp_desc();
+                        text += "<br>=========================<br>";
+                    }
+                }
+                text += "</p></html>";
+
+                complaints.setText(text);
+            }
+        });
+
+    }
+
+
+    private void fetch() {
+        complaintList = this.getComplaintsService().findAll();
+        distinctComplaintList = this.getComplaintsService().findAll().stream().map(Complaint::getCompSubj).distinct().toList();
+
+        try {
+            Field header = Complaint.class.getDeclaredField("compSubj");
+            String[] complaintSubject = new String[]{"subject"};
+
+            Object[][] viewedData = new Object[distinctComplaintList.size()][1];
+
+            for (int j = 0; j < distinctComplaintList.size(); j++) {
+                try {
+                    viewedData[j][0] = distinctComplaintList.get(j);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            table = new JTable(new DefaultTableModel(viewedData, complaintSubject)) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+        } catch(Exception e) {}
     }
 
     private JLabel complaints;
-    private JScrollPane scrollPane2;
-    private JList list1;
+    private JScrollPane tablePane;
+    private JScrollPane labelPane;
+    private JTable table;
     private JButton refresh;
     private JButton add;
+
+    List<Complaint> complaintList;
+    List<String> distinctComplaintList;
 }

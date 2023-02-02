@@ -3,6 +3,7 @@ package com.vaultec.dbapp.repository;
 import com.vaultec.dbapp.model.entity.Complaint;
 import com.vaultec.dbapp.repository.custom.CustomComplaintsRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ComplaintsRepository extends JpaRepository<Complaint, Long>, Cu
     List<Complaint> findAllByDwellerId(Long id);
 
     List<Complaint> findAllByVerStatus(String ver_status);
+
 }
