@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 @Setter
 public class DwellersCard extends DefaultCard {
     public void init() {
-
+        super.init();
         this.setLayout(new TableLayout(new double[][]{
                 {TableLayout.PREFERRED, 118, 20, 99, 130, 265, TableLayout.PREFERRED},
                 {TableLayout.PREFERRED, 347, 54, 26, 53}}));

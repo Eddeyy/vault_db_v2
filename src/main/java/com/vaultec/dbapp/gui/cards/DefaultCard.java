@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.JPanel;
+import java.awt.*;
 
 @Getter
 @Setter(onMethod = @__(@Autowired))
@@ -35,6 +36,9 @@ public abstract class DefaultCard extends JPanel {
         currentDweller = new Dweller();
         currentDweller.setDweller_id(-1L);
         currentDweller.setJob(new Job(JobType.UNEMPLOYED));
+
+        setBackground(Color.BLACK);
+        setForeground(Color.GREEN);
     }
 
     public void refresh(Dweller dweller) {

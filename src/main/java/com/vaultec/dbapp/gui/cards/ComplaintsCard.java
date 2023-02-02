@@ -19,6 +19,7 @@ import java.util.List;
 public class ComplaintsCard extends DefaultCard {
 
     public void init() {
+        super.init();
         complaints = new JLabel();
         tablePane = new JScrollPane();
         refresh = new JButton();

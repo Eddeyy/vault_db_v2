@@ -21,6 +21,7 @@ public class AddUserWindow extends JFrame {
     }
 
     private void initComponents() {
+
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         nameLabel = new JLabel();
         nameField = new JTextField();

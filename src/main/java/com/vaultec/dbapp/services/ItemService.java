@@ -38,7 +38,7 @@ public class ItemService {
         return true;
     }
 
-    boolean toggleReservation(Long itemId) {
+    public boolean toggleReservation(Long itemId) {
         Optional<Item> existing = itemsRepository.findById(itemId);
 
         if(existing.isEmpty()) {

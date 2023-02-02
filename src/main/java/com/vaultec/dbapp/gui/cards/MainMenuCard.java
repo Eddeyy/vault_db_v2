@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class MainMenuCard extends DefaultCard {
     public void init() {
+        super.init();
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
         warehouseOpt = new JMenuItem();
