@@ -1,17 +1,16 @@
 package com.vaultec.dbapp.services;
 
-import com.vaultec.dbapp.config.routing.WithDatabase;
+import com.vaultec.dbapp.gui.cards.DefaultCard;
 import com.vaultec.dbapp.model.entity.Dweller;
 import com.vaultec.dbapp.model.enums.UserType;
 import com.vaultec.dbapp.repository.DwellerRepository;
 import com.vaultec.dbapp.validation.UsableBy;
+import com.vaultec.dbapp.validation.UserValidator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Getter
@@ -22,6 +21,17 @@ public class DwellerService {
 
     @UsableBy({UserType.MANAGER, UserType.OVERSEER})
     public boolean createDweller(Dweller dwellerToSave) {
+        try {
+            if (!UserValidator.isAllowed(
+                    DefaultCard.getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("createDweller", Dweller.class)
+            )) {
+                System.out.println("USER IS UNABLE TO ADD DWELLERS.");
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
 
         if(dwellerRepository.exists(Example.of(dwellerToSave))) {
             System.out.println("UNABLE TO CREATE DWELLER - DWELLER ALREADY EXISTS");
@@ -45,6 +55,17 @@ public class DwellerService {
 
     @UsableBy({UserType.MEDIC, UserType.OVERSEER, UserType.MANAGER})
     public boolean healDweller(Dweller dwellerToHeal) {
+        try {
+            if (!UserValidator.isAllowed(
+                    DefaultCard.getCurrentDweller().getJob().getJob_title().toUpperCase(),
+                    this.getClass().getDeclaredMethod("healDweller", Dweller.class)
+            )) {
+                System.out.println("USER IS UNABLE TO HEAL ANY DWELLERS.");
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
         Dweller existing = dwellerRepository.findById(dwellerToHeal.getDweller_id()).orElse(new Dweller());
 
         if(!existing.getDweller_id().equals(dwellerToHeal.getDweller_id())) {

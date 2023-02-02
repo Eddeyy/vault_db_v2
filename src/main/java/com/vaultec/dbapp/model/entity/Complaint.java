@@ -23,7 +23,8 @@ public class Complaint {
     @ManyToOne(targetEntity = Dweller.class)
     @JoinColumn(name = "dweller_id")
     private Dweller dweller;
-    @Column(name = "comp_subj")
+
+    @Column(name = "COMP_SUBJ")
     private String compSubj;
 
     private String comp_desc;

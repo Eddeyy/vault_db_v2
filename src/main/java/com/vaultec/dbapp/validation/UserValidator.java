@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @Getter
 @Setter
-public class UserValidatior {
+public class UserValidator {
 
     public static boolean isAllowed(String job, Method method) {
 
